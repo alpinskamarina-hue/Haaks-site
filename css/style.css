@@ -31,11 +31,19 @@ body{
   margin:0;
   font-family:var(--font);
   color:var(--ink);
-  background:var(--paper);
+  background:var(--ink);
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   line-height:1.55;
   overflow-x:hidden;
+}
+
+/* Site-wide fixed video background — sits behind every section; each
+   section then uses a translucent "glass" background so it stays
+   legible while the video shows through. No dark scrim on top of it. */
+.site-video-bg{
+  position:fixed;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:-1;
 }
 img,svg{display:block;max-width:100%;}
 a{color:inherit;text-decoration:none;}
@@ -147,9 +155,7 @@ h2{font-size:clamp(28px,4vw,42px);}
 .hero{
   position:relative;min-height:100vh;
   display:flex;flex-direction:column;
-  background:#000;overflow:hidden;
 }
-.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
 .hero-content{
   position:relative;z-index:2;flex:1;
   display:flex;flex-direction:column;justify-content:flex-end;
@@ -200,7 +206,10 @@ h2{font-size:clamp(28px,4vw,42px);}
 /* ==========================================================================
    Trust bar
    ========================================================================== */
-.trustbar{background:var(--ink);padding:26px 0;}
+.trustbar{
+  background:rgba(24,36,32,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  padding:26px 0;
+}
 .trustbar .container{
   display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justify-content:space-between;
 }
@@ -211,10 +220,13 @@ h2{font-size:clamp(28px,4vw,42px);}
 /* ==========================================================================
    Problem / recognition block
    ========================================================================== */
-.problems{padding:100px 0;background:var(--paper);}
+.problems{
+  padding:100px 0;
+  background:rgba(247,244,238,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
 .problem-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
 .problem-card{
-  background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);
+  background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:var(--radius-md);
   padding:26px 26px 24px;box-shadow:var(--shadow-sm);
 }
 .problem-card q{
@@ -232,10 +244,13 @@ h2{font-size:clamp(28px,4vw,42px);}
 /* ==========================================================================
    Services grid
    ========================================================================== */
-.services{padding:100px 0;background:var(--paper-alt);}
+.services{
+  padding:100px 0;
+  background:rgba(239,233,223,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
 .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
 .service-card{
-  background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);
+  background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:var(--radius-md);
   padding:26px 22px;transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 .service-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:transparent;}
@@ -251,7 +266,10 @@ h2{font-size:clamp(28px,4vw,42px);}
 /* ==========================================================================
    Promise block
    ========================================================================== */
-.promise{padding:100px 0;background:var(--ink);color:#fff;}
+.promise{
+  padding:100px 0;color:#fff;
+  background:rgba(24,36,32,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
 .promise .eyebrow{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:var(--accent-soft);}
 .promise .section-head h2{color:#fff;}
 .promise .section-head p{color:#c7cfc9;}
@@ -271,7 +289,10 @@ h2{font-size:clamp(28px,4vw,42px);}
 /* ==========================================================================
    Process
    ========================================================================== */
-.process{padding:100px 0;background:var(--paper);}
+.process{
+  padding:100px 0;
+  background:rgba(247,244,238,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
 .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
 .process-step{padding:0 22px 0 0;position:relative;}
 .process-step:first-child{padding-left:0;}
@@ -290,9 +311,12 @@ h2{font-size:clamp(28px,4vw,42px);}
 /* ==========================================================================
    Why Haaks
    ========================================================================== */
-.why{padding:100px 0;background:var(--paper-alt);}
+.why{
+  padding:100px 0;
+  background:rgba(239,233,223,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-.why-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);padding:28px 24px;}
+.why-card{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:var(--radius-md);padding:28px 24px;}
 .why-icon{width:42px;height:42px;border-radius:11px;background:var(--accent-tint);display:flex;align-items:center;justify-content:center;color:var(--accent-dark);margin-bottom:18px;}
 .why-icon svg{width:22px;height:22px;}
 .why-card h3{font-size:16.5px;margin-bottom:8px;}
@@ -301,10 +325,13 @@ h2{font-size:clamp(28px,4vw,42px);}
 /* ==========================================================================
    Projects
    ========================================================================== */
-.projects{padding:100px 0;background:var(--paper);}
+.projects{
+  padding:100px 0;
+  background:rgba(247,244,238,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
 .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 .project-card{
-  border-radius:var(--radius-md);overflow:hidden;background:#fff;
+  border-radius:var(--radius-md);overflow:hidden;background:rgba(255,255,255,.92);
   border:1px solid var(--line);box-shadow:var(--shadow-sm);
   transition:transform .18s ease, box-shadow .18s ease;
 }
@@ -331,7 +358,10 @@ h2{font-size:clamp(28px,4vw,42px);}
 /* ==========================================================================
    Service area
    ========================================================================== */
-.area{padding:90px 0;background:var(--ink);color:#fff;}
+.area{
+  padding:90px 0;color:#fff;
+  background:rgba(24,36,32,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
 .area-inner{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
 .area .eyebrow{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:var(--accent-soft);}
 .area h2{color:#fff;}
@@ -352,9 +382,12 @@ h2{font-size:clamp(28px,4vw,42px);}
 /* ==========================================================================
    Reviews
    ========================================================================== */
-.reviews{padding:100px 0;background:var(--paper-alt);}
+.reviews{
+  padding:100px 0;
+  background:rgba(239,233,223,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
 .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-.review-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-md);padding:26px 24px;display:flex;flex-direction:column;gap:16px;}
+.review-card{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:var(--radius-md);padding:26px 24px;display:flex;flex-direction:column;gap:16px;}
 .review-stars{display:flex;gap:3px;color:var(--accent);}
 .review-stars svg{width:16px;height:16px;}
 .review-card p.quote{font-size:15px;color:var(--ink-soft);flex:1;}
@@ -372,7 +405,10 @@ h2{font-size:clamp(28px,4vw,42px);}
 /* ==========================================================================
    FAQ
    ========================================================================== */
-.faq{padding:100px 0;background:var(--paper);}
+.faq{
+  padding:100px 0;
+  background:rgba(247,244,238,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
 .faq-list{max-width:800px;margin:0 auto;border-top:1px solid var(--line);}
 .faq-item{border-bottom:1px solid var(--line);}
 .faq-q{
@@ -392,9 +428,13 @@ h2{font-size:clamp(28px,4vw,42px);}
 /* ==========================================================================
    Final CTA
    ========================================================================== */
-.final-cta{padding:90px 0 0;background:var(--paper-alt);}
+.final-cta{
+  padding:90px 0 0;
+  background:rgba(239,233,223,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
 .final-cta-box{
-  background:linear-gradient(135deg,#22332b 0%, #182420 100%);
+  background:linear-gradient(135deg,rgba(34,51,43,.88) 0%, rgba(24,36,32,.92) 100%);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
   border-radius:var(--radius-lg);padding:64px 60px;color:#fff;
   display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;
   position:relative;overflow:hidden;
@@ -416,9 +456,12 @@ h2{font-size:clamp(28px,4vw,42px);}
 /* ==========================================================================
    Contact form
    ========================================================================== */
-.contact{padding:80px 0 110px;background:var(--paper-alt);}
+.contact{
+  padding:80px 0 110px;
+  background:rgba(239,233,223,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
 .contact-box{
-  max-width:760px;margin:-64px auto 0;background:#fff;border-radius:var(--radius-lg);
+  max-width:760px;margin:-64px auto 0;background:rgba(255,255,255,.95);border-radius:var(--radius-lg);
   box-shadow:var(--shadow-lg);padding:48px 52px;position:relative;z-index:2;
 }
 .contact-box h2{font-size:26px;text-align:center;}
@@ -445,7 +488,10 @@ form.lead-form{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:18
 /* ==========================================================================
    Footer
    ========================================================================== */
-.site-footer{background:var(--ink);color:#c7cfc9;padding:64px 0 30px;}
+.site-footer{
+  background:rgba(24,36,32,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  color:#c7cfc9;padding:64px 0 30px;
+}
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.1);}
 .footer-brand .logo{color:#fff;}
 .footer-brand p{margin-top:16px;font-size:14px;line-height:1.7;max-width:280px;}
