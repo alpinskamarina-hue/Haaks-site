@@ -150,11 +150,23 @@ h2{font-size:clamp(28px,4vw,42px);}
 .mobile-nav .mobile-phone{color:#fff;font-weight:700;border-bottom:none;}
 
 /* ==========================================================================
-   Hero — video achtergrond, geen overlay
+   Hero — video achtergrond met een bodem-gradient zodat tekst leesbaar
+   blijft op lichte beelden (geen vlakke overlay over de hele video)
    ========================================================================== */
 .hero{
   position:relative;min-height:100vh;
   display:flex;flex-direction:column;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(
+    to top,
+    rgba(8,12,10,.72) 0%,
+    rgba(8,12,10,.5) 25%,
+    rgba(8,12,10,.22) 50%,
+    rgba(8,12,10,.06) 70%,
+    rgba(8,12,10,0) 100%
+  );
 }
 .hero-content{
   position:relative;z-index:2;flex:1;
@@ -165,6 +177,7 @@ h2{font-size:clamp(28px,4vw,42px);}
 .hero-main h1.animated-heading{
   font-size:clamp(34px,6vw,72px);font-weight:400;letter-spacing:-0.04em;
   color:#fff;margin:0 0 16px;line-height:1.08;
+  text-shadow:0 2px 20px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.5);
 }
 .heading-line{display:block;}
 .heading-word{display:inline-block;white-space:nowrap;}
@@ -173,7 +186,7 @@ h2{font-size:clamp(28px,4vw,42px);}
   transition:opacity .5s ease, transform .5s ease;
 }
 .heading-char.is-in{opacity:1;transform:translateX(0);}
-.hero-sub{font-size:16px;color:#d4d4d4;max-width:480px;margin:0 0 20px;}
+.hero-sub{font-size:16px;color:#e6e6e6;max-width:480px;margin:0 0 20px;text-shadow:0 1px 10px rgba(0,0,0,.45);}
 .hero-cta-row{display:flex;flex-wrap:wrap;gap:16px;}
 .hero-btn{
   display:inline-flex;align-items:center;justify-content:center;
