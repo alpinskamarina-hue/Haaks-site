@@ -6,6 +6,9 @@
 <title>Aannemer in regio Utrecht — verbouwen, dakkapel, metselwerk | Haaks</title>
 <meta name="description" content="Haaks is aannemer in regio Utrecht voor alle bouwwerkzaamheden: verbouwen, aanbouw, dakkapel, dakwerk, gevels en badkamers. Offerte binnen 5 werkdagen, vaste prijs.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23c1481d'/%3E%3Cpath d='M6 4v16h14' stroke='%23f7f4ee' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -16,127 +19,66 @@
      voorbeeldgegevens. Vervang ze door de echte bedrijfsgegevens vóór publicatie.
      ========================================================================== -->
 
-<header class="site-header" id="siteHeader">
-  <div class="header-inner">
-    <a href="#top" class="logo">
-      <svg class="logo-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M5 4v16h16"/>
-        <path d="M5 4v6M9 4v3M13 4v3M17 4v3"/>
-        <path d="M5 20h6M5 16h3M5 12h3"/>
-      </svg>
-      Haaks
-    </a>
-    <nav class="main-nav" aria-label="Hoofdmenu">
+<!-- ============================== HERO (video) ============================== -->
+<section class="hero" id="top">
+  <video class="hero-video" autoplay loop muted playsinline preload="auto">
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4" type="video/mp4">
+  </video>
+
+  <header class="hero-nav">
+    <div class="header-inner liquid-glass">
+      <a href="#top" class="logo">
+        <svg class="logo-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 4v16h16"/>
+          <path d="M5 4v6M9 4v3M13 4v3M17 4v3"/>
+          <path d="M5 20h6M5 16h3M5 12h3"/>
+        </svg>
+        Haaks
+      </a>
+      <nav class="main-nav" aria-label="Hoofdmenu">
+        <a href="#diensten">Diensten</a>
+        <a href="#werkwijze">Werkwijze</a>
+        <a href="#projecten">Projecten</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header-cta">
+        <a href="#contact" class="btn btn-primary">Offerte aanvragen</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu openen" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav liquid-glass" id="mobileNav" aria-label="Mobiel menu">
       <a href="#diensten">Diensten</a>
       <a href="#werkwijze">Werkwijze</a>
       <a href="#projecten">Projecten</a>
       <a href="#reviews">Reviews</a>
       <a href="#faq">Vragen</a>
       <a href="#contact">Contact</a>
+      <a href="tel:+31302104455" class="mobile-phone">Bel: +31 (0)30 210 44 55</a>
     </nav>
-    <div class="header-cta">
-      <a class="header-phone" href="tel:+31302104455">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.34 1.79.65 2.65a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.43-1.42a2 2 0 0 1 2.11-.45c.86.31 1.75.53 2.65.65A2 2 0 0 1 22 16.92z"/></svg>
-        <span>+31 (0)30 210 44 55</span>
-      </a>
-      <a href="#contact" class="btn btn-primary">Offerte aanvragen</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Menu openen" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
+  </header>
+
+  <div class="hero-content">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <h1 class="animated-heading" id="heroHeading" data-heading="De aannemer die wél|terugbelt"></h1>
+        <p class="hero-sub fade-target" data-delay="800" data-duration="1000">Van dakkapel tot complete verbouwing. Eén aannemer, een vaste prijs, een team dat gewoon komt opdagen.</p>
+        <div class="hero-cta-row fade-target" data-delay="1200" data-duration="1000">
+          <a href="#contact" class="hero-btn hero-btn-solid">Vraag een offerte aan</a>
+          <a href="#projecten" class="hero-btn hero-btn-glass liquid-glass">Bekijk ons werk</a>
+        </div>
+      </div>
+      <div class="hero-tag-col">
+        <div class="hero-tag liquid-glass fade-target" data-delay="1400" data-duration="1000">
+          <span>Verbouwen. Renoveren. Vakmanschap.</span>
+        </div>
+      </div>
     </div>
   </div>
-  <nav class="mobile-nav" id="mobileNav" aria-label="Mobiel menu">
-    <a href="#diensten">Diensten</a>
-    <a href="#werkwijze">Werkwijze</a>
-    <a href="#projecten">Projecten</a>
-    <a href="#reviews">Reviews</a>
-    <a href="#faq">Vragen</a>
-    <a href="#contact">Contact</a>
-    <a href="tel:+31302104455" class="mobile-phone">Bel: +31 (0)30 210 44 55</a>
-  </nav>
-</header>
+</section>
 
-<main id="top">
-
-  <!-- ============================== HERO ============================== -->
-  <section class="hero">
-    <div class="container hero-inner">
-      <div class="hero-copy">
-        <span class="eyebrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-          Aannemer regio Utrecht
-        </span>
-        <h1>De aannemer die wél terugbelt</h1>
-        <p class="lede">Haaks doet al het bouwwerk aan je woning: verbouwen, aanbouwen, metselen, daken, gevels, badkamers en kozijnen. In regio Utrecht en omgeving. Je krijgt een vaste prijs vooraf, een vast team op de klus en een huis dat schoon wordt achtergelaten.</p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">
-            Vraag een offerte aan
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
-          </a>
-          <a href="tel:+31302104455" class="btn btn-outline">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.34 1.79.65 2.65a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.43-1.42a2 2 0 0 1 2.11-.45c.86.31 1.75.53 2.65.65A2 2 0 0 1 22 16.92z"/></svg>
-            Bel direct: +31 (0)30 210 44 55
-          </a>
-        </div>
-        <div class="hero-micro">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-          Binnen 1 werkdag reactie. We komen langs voor een vrijblijvende opname — ook als je nog niet zeker weet wat je precies wilt.
-        </div>
-      </div>
-
-      <div class="hero-visual">
-        <div class="hero-art">
-          <svg viewBox="0 0 460 520" fill="none" aria-hidden="true">
-            <defs>
-              <pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse">
-                <path d="M26 0H0V26" stroke="rgba(247,244,238,.07)" stroke-width="1"/>
-              </pattern>
-            </defs>
-            <rect width="460" height="520" fill="url(#grid)"/>
-            <g stroke="#f7f4ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".85">
-              <path d="M90 300 230 190 370 300"/>
-              <path d="M120 280v130h220V280"/>
-              <path d="M205 410v-90h50v90"/>
-              <rect x="145" y="300" width="40" height="45" rx="2"/>
-              <rect x="275" y="300" width="40" height="45" rx="2"/>
-            </g>
-            <g stroke="#c1481d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M230 190v-46"/>
-              <path d="M204 144h52v46h-52z"/>
-            </g>
-            <g stroke="rgba(247,244,238,.35)" stroke-width="1.4" stroke-dasharray="3 6">
-              <path d="M60 410h340"/>
-              <path d="M60 410V80"/>
-            </g>
-            <g stroke="#f7f4ee" stroke-width="1.6" opacity=".6">
-              <path d="M60 90h18M60 110h18M60 130h18"/>
-            </g>
-          </svg>
-        </div>
-        <div class="hero-float f1">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>
-          Offerte in 5 werkdagen
-        </div>
-        <div class="hero-float f2">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V6Z"/><path d="M9 12l2 2 4-4"/></svg>
-          10 jaar garantie
-        </div>
-        <div class="hero-badge">
-          <div class="stars" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16.8 6 20l1.5-6.5-5-4.4 6.6-.6L12 2.5Z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16.8 6 20l1.5-6.5-5-4.4 6.6-.6L12 2.5Z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16.8 6 20l1.5-6.5-5-4.4 6.6-.6L12 2.5Z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16.8 6 20l1.5-6.5-5-4.4 6.6-.6L12 2.5Z"/></svg>
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16.8 6 20l1.5-6.5-5-4.4 6.6-.6L12 2.5Z"/></svg>
-          </div>
-          <div>
-            <strong>9,2 / 10 op Werkspot</strong>
-            <span>214 beoordelingen van opdrachtgevers</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<main>
 
   <!-- ============================== TRUST BAR ============================== -->
   <section class="trustbar">

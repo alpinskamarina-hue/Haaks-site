@@ -1,17 +1,58 @@
 (function () {
   "use strict";
 
-  /* Sticky header shadow on scroll */
-  var header = document.getElementById("siteHeader");
-  function onScroll() {
-    if (window.scrollY > 8) {
-      header.classList.add("is-scrolled");
-    } else {
-      header.classList.remove("is-scrolled");
-    }
+  /* Animated heading: splits data-heading ("|" = line break) into
+     per-character spans and staggers their entrance transition. */
+  var heading = document.getElementById("heroHeading");
+  if (heading) {
+    var raw = heading.getAttribute("data-heading") || "";
+    var lines = raw.split("|");
+    var charDelay = 30;
+    var initialDelay = 200;
+    var frag = document.createDocumentFragment();
+    lines.forEach(function (line, lineIndex) {
+      var lineEl = document.createElement("span");
+      lineEl.className = "heading-line";
+      var wordEl = null;
+      line.split("").forEach(function (ch, charIndex) {
+        var charEl = document.createElement("span");
+        charEl.className = "heading-char";
+        var delay = lineIndex * line.length * charDelay + charIndex * charDelay;
+        charEl.style.transitionDelay = delay + "ms";
+        if (ch === " ") {
+          charEl.textContent = "\u00A0";
+          lineEl.appendChild(charEl);
+          wordEl = null;
+        } else {
+          charEl.textContent = ch;
+          if (!wordEl) {
+            wordEl = document.createElement("span");
+            wordEl.className = "heading-word";
+            lineEl.appendChild(wordEl);
+          }
+          wordEl.appendChild(charEl);
+        }
+      });
+      frag.appendChild(lineEl);
+    });
+    heading.appendChild(frag);
+    window.setTimeout(function () {
+      heading.querySelectorAll(".heading-char").forEach(function (c) {
+        c.classList.add("is-in");
+      });
+    }, initialDelay);
   }
-  onScroll();
-  window.addEventListener("scroll", onScroll, { passive: true });
+
+  /* Generic fade-in: elements with class "fade-target" fade to opacity 1
+     after their data-delay (ms), transitioning over data-duration (ms). */
+  document.querySelectorAll(".fade-target").forEach(function (el) {
+    var delay = parseInt(el.getAttribute("data-delay") || "0", 10);
+    var duration = parseInt(el.getAttribute("data-duration") || "600", 10);
+    el.style.transitionDuration = duration + "ms";
+    window.setTimeout(function () {
+      el.classList.add("is-visible");
+    }, delay);
+  });
 
   /* Mobile nav toggle */
   var navToggle = document.getElementById("navToggle");
