@@ -674,6 +674,107 @@ form.lead-form{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:18
 }
 
 /* ==========================================================================
+   Icoon-animatie
+   Drie lagen: de tegel veert omhoog zodra zijn kaart in beeld schuift,
+   de glans ademt daarna rustig door (ook op mobiel, waar geen hover is),
+   en onder de cursor kantelt de tegel terwijl het pictogram recht blijft.
+   Let op: fill-mode is 'backwards', niet 'both' — een doorlopende fill
+   houdt de eind-transform vast en zet de hover-transform buitenspel.
+   ========================================================================== */
+@keyframes icon-rise{
+  0%  {opacity:0;transform:translateY(10px) scale(.6) rotate(-10deg);}
+  55% {opacity:1;transform:translateY(0) scale(1.09) rotate(3deg);}
+  100%{opacity:1;transform:translateY(0) scale(1) rotate(0);}
+}
+@keyframes glyph-rise{
+  0%  {opacity:0;transform:translateY(5px) scale(.72);}
+  100%{opacity:1;transform:translateY(0) scale(1);}
+}
+@keyframes tile-sheen{
+  0%,100%{opacity:.5;}
+  50%    {opacity:1;}
+}
+
+/* Kolom-voor-kolom vertraging, zodat een rij als een golf binnenkomt. */
+.services-grid > :nth-child(4n+2),
+.promise-grid > :nth-child(4n+2),
+.process-grid > :nth-child(4n+2){--icon-delay:80ms;}
+.services-grid > :nth-child(4n+3),
+.promise-grid > :nth-child(4n+3),
+.process-grid > :nth-child(4n+3){--icon-delay:160ms;}
+.services-grid > :nth-child(4n+4),
+.promise-grid > :nth-child(4n+4),
+.process-grid > :nth-child(4n+4){--icon-delay:240ms;}
+.why-grid > :nth-child(3n+2),
+.review-grid > :nth-child(3n+2){--icon-delay:80ms;}
+.why-grid > :nth-child(3n+3),
+.review-grid > :nth-child(3n+3){--icon-delay:160ms;}
+
+.reveal.is-visible .service-icon,
+.reveal.is-visible .why-icon,
+.reveal.is-visible .promise-num,
+.reveal.is-visible .step-num,
+.reveal.is-visible .review-avatar{
+  animation:icon-rise .62s cubic-bezier(.34,1.56,.64,1) backwards;
+  animation-delay:calc(60ms + var(--icon-delay,0ms));
+}
+.reveal.is-visible .service-icon svg,
+.reveal.is-visible .why-icon svg,
+.reveal.is-visible .promise-num svg{
+  animation:glyph-rise .45s cubic-bezier(.34,1.56,.64,1) backwards;
+  animation-delay:calc(240ms + var(--icon-delay,0ms));
+}
+
+/* Alleen opacity — transform blijft vrij voor de hover. */
+.service-icon::before,.why-icon::before,.promise-num::before{
+  animation:tile-sheen 4.5s ease-in-out infinite;
+  animation-delay:calc(var(--icon-delay,0ms) * 4);
+}
+
+.service-icon,.why-icon,.promise-num,.step-num,.review-avatar{
+  transition:transform .38s cubic-bezier(.34,1.56,.64,1), box-shadow .38s ease;
+}
+.service-icon svg,.why-icon svg,.promise-num svg{
+  transition:transform .38s cubic-bezier(.34,1.56,.64,1);
+}
+.service-card:hover .service-icon,
+.why-card:hover .why-icon,
+.promise-card:hover .promise-num{transform:translateY(-4px) rotate(-7deg) scale(1.09);}
+.service-card:hover .service-icon svg,
+.why-card:hover .why-icon svg,
+.promise-card:hover .promise-num svg{transform:rotate(7deg) scale(1.05);}
+.service-card:hover .service-icon,
+.why-card:hover .why-icon{
+  box-shadow:
+    0 16px 22px -10px rgba(124,54,21,.5),
+    0 5px 10px rgba(124,54,21,.2),
+    inset 0 1.5px 0 rgba(255,255,255,.98),
+    inset 0 -8px 14px rgba(176,86,40,.18);
+}
+.process-step:hover .step-num,
+.review-card:hover .review-avatar{transform:translateY(-3px) scale(1.07);}
+
+@media (prefers-reduced-motion:reduce){
+  .reveal.is-visible .service-icon,
+  .reveal.is-visible .why-icon,
+  .reveal.is-visible .promise-num,
+  .reveal.is-visible .step-num,
+  .reveal.is-visible .review-avatar,
+  .reveal.is-visible .service-icon svg,
+  .reveal.is-visible .why-icon svg,
+  .reveal.is-visible .promise-num svg,
+  .service-icon::before,.why-icon::before,.promise-num::before{animation:none;}
+  .service-card:hover .service-icon,
+  .why-card:hover .why-icon,
+  .promise-card:hover .promise-num,
+  .service-card:hover .service-icon svg,
+  .why-card:hover .why-icon svg,
+  .promise-card:hover .promise-num svg,
+  .process-step:hover .step-num,
+  .review-card:hover .review-avatar{transform:none;}
+}
+
+/* ==========================================================================
    Reveal animation
    ========================================================================== */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
