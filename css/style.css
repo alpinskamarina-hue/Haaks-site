@@ -359,6 +359,15 @@ h2{font-size:clamp(28px,4vw,42px);}
   color:var(--ink);font-size:12px;font-weight:800;padding:6px 12px;border-radius:100px;
   text-transform:uppercase;letter-spacing:.03em;
 }
+.project-photo-note{
+  position:absolute;bottom:14px;right:14px;z-index:1;
+  display:flex;align-items:center;gap:6px;
+  background:rgba(24,36,32,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  border:1px solid rgba(247,244,238,.28);
+  color:#f7f4ee;font-size:11.5px;font-weight:700;letter-spacing:.01em;
+  padding:6px 12px 6px 10px;border-radius:100px;
+}
+.project-photo-note svg{width:13px;height:13px;flex:none;}
 .project-body{padding:20px 22px 24px;}
 .project-body h3{font-size:16.5px;margin-bottom:8px;}
 .project-meta{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--muted);font-weight:600;margin-bottom:10px;}
