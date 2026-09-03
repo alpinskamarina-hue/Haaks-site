@@ -353,21 +353,68 @@ h2{font-size:clamp(28px,4vw,42px);}
   aspect-ratio:4/3;position:relative;overflow:hidden;
   background:linear-gradient(150deg,#243329 0%,#182420 100%);
 }
-.project-media svg{position:absolute;inset:0;width:100%;height:100%;}
 .project-tag{
-  position:absolute;top:14px;left:14px;background:rgba(247,244,238,.92);
+  position:absolute;top:14px;left:14px;z-index:2;background:rgba(247,244,238,.92);
   color:var(--ink);font-size:12px;font-weight:800;padding:6px 12px;border-radius:100px;
   text-transform:uppercase;letter-spacing:.03em;
 }
-.project-photo-note{
-  position:absolute;bottom:14px;right:14px;z-index:1;
-  display:flex;align-items:center;gap:6px;
-  background:rgba(24,36,32,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
-  border:1px solid rgba(247,244,238,.28);
-  color:#f7f4ee;font-size:11.5px;font-weight:700;letter-spacing:.01em;
-  padding:6px 12px 6px 10px;border-radius:100px;
+
+/* Lege fotoplaatshouder: gelaagde verlichting geeft de tegel diepte,
+   de trage glans suggereert dat er nog beeld onderweg is. */
+.project-placeholder{
+  position:absolute;inset:0;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  background:
+    radial-gradient(120% 85% at 50% 12%, rgba(247,244,238,.10) 0%, rgba(247,244,238,0) 58%),
+    linear-gradient(158deg,#2c3b31 0%, #1e2b24 46%, #131c17 100%);
 }
-.project-photo-note svg{width:13px;height:13px;flex:none;}
+.project-placeholder::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(105deg, transparent 36%, rgba(247,244,238,.08) 48%, transparent 62%);
+  transform:translateX(-100%);
+  animation:placeholder-sheen 5s ease-in-out infinite;
+}
+@keyframes placeholder-sheen{
+  0%{transform:translateX(-100%);}
+  55%{transform:translateX(100%);}
+  100%{transform:translateX(100%);}
+}
+@media (prefers-reduced-motion:reduce){
+  .project-placeholder::after{animation:none;}
+}
+.project-placeholder-icon{
+  position:relative;z-index:1;
+  width:84px;height:84px;border-radius:24px;
+  display:flex;align-items:center;justify-content:center;
+  color:#f7f4ee;
+  background:
+    linear-gradient(158deg, rgba(247,244,238,.28) 0%, rgba(247,244,238,.08) 40%, rgba(10,16,12,.34) 100%),
+    linear-gradient(160deg,#3c4f43 0%, #26342a 55%, #161f19 100%);
+  border:1px solid rgba(247,244,238,.3);
+  box-shadow:
+    0 24px 32px -12px rgba(0,0,0,.75),
+    0 8px 14px rgba(0,0,0,.45),
+    inset 0 1.5px 0 rgba(255,255,255,.45),
+    inset 0 -14px 22px rgba(0,0,0,.4);
+}
+/* glans over de bovenkant + contactschaduw eronder: samen leest de tegel als reliëf */
+.project-placeholder-icon::before{
+  content:"";position:absolute;left:7%;right:7%;top:5%;height:40%;
+  border-radius:18px 18px 44% 44% / 18px 18px 20px 20px;
+  background:linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,.01));
+  pointer-events:none;
+}
+.project-placeholder-icon::after{
+  content:"";position:absolute;left:50%;bottom:-15px;transform:translateX(-50%);
+  width:64%;height:13px;border-radius:50%;
+  background:radial-gradient(closest-side, rgba(0,0,0,.6), rgba(0,0,0,0));
+  pointer-events:none;
+}
+.project-placeholder-icon svg{position:relative;z-index:1;width:36px;height:36px;filter:drop-shadow(0 3px 6px rgba(0,0,0,.55));}
+.project-placeholder-text{
+  position:relative;z-index:1;
+  font-size:13px;font-weight:600;letter-spacing:.02em;color:rgba(247,244,238,.72);
+}
 .project-body{padding:20px 22px 24px;}
 .project-body h3{font-size:16.5px;margin-bottom:8px;}
 .project-meta{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--muted);font-weight:600;margin-bottom:10px;}
