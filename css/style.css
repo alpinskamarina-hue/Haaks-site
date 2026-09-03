@@ -267,11 +267,38 @@ h2{font-size:clamp(28px,4vw,42px);}
   padding:26px 22px;transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 .service-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:transparent;}
-.service-icon{
-  width:46px;height:46px;border-radius:12px;background:var(--accent-tint);
-  display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--accent-dark);
+/* Reliëf-iconen: kaplicht langs de bovenrand, glans over de bolling en
+   een warme contactschaduw eronder, zodat de tegel van de kaart afkomt. */
+.service-icon,.why-icon{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--accent-dark);
+  background:linear-gradient(160deg,#fef6ee 0%, #f9e3ce 46%, #eecfad 100%);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:
+    0 10px 16px -8px rgba(124,54,21,.45),
+    0 3px 6px rgba(124,54,21,.16),
+    inset 0 1.5px 0 rgba(255,255,255,.95),
+    inset 0 -8px 14px rgba(176,86,40,.16);
 }
-.service-icon svg{width:24px;height:24px;}
+.service-icon::before,.why-icon::before{
+  content:"";position:absolute;left:8%;right:8%;top:5%;height:40%;
+  border-radius:12px 12px 44% 44% / 12px 12px 18px 18px;
+  background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.04));
+  pointer-events:none;
+}
+.service-icon::after,.why-icon::after{
+  content:"";position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);
+  width:60%;height:9px;border-radius:50%;
+  background:radial-gradient(closest-side, rgba(124,54,21,.32), rgba(124,54,21,0));
+  pointer-events:none;
+}
+.service-icon svg,.why-icon svg{
+  position:relative;z-index:1;
+  filter:drop-shadow(0 1.5px 1.5px rgba(124,54,21,.4));
+}
+.service-icon{width:50px;height:50px;border-radius:15px;margin-bottom:18px;}
+.service-icon svg{width:25px;height:25px;}
 .service-card h3{font-size:16.5px;font-weight:800;margin-bottom:6px;}
 .service-card p{font-size:14px;color:var(--muted);}
 .services-cta{margin-top:40px;text-align:center;}
@@ -292,10 +319,26 @@ h2{font-size:clamp(28px,4vw,42px);}
   border-radius:var(--radius-md);padding:28px 24px;
 }
 .promise-num{
-  width:40px;height:40px;border-radius:10px;background:var(--accent);
+  position:relative;width:46px;height:46px;border-radius:14px;
   display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:20px;
+  background:linear-gradient(160deg,#e2703f 0%, #c1481d 50%, #92320e 100%);
+  border:1px solid rgba(255,255,255,.24);
+  box-shadow:
+    0 14px 22px -10px rgba(0,0,0,.7),
+    0 3px 7px rgba(0,0,0,.38),
+    inset 0 1.5px 0 rgba(255,255,255,.5),
+    inset 0 -9px 15px rgba(0,0,0,.3);
 }
-.promise-num svg{width:20px;height:20px;}
+.promise-num::before{
+  content:"";position:absolute;left:9%;right:9%;top:6%;height:38%;
+  border-radius:11px 11px 44% 44% / 11px 11px 16px 16px;
+  background:linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,.02));
+  pointer-events:none;
+}
+.promise-num svg{
+  position:relative;z-index:1;width:22px;height:22px;
+  filter:drop-shadow(0 1.5px 2px rgba(0,0,0,.45));
+}
 .promise-card h3{color:#fff;font-size:18px;margin-bottom:10px;}
 .promise-card p{color:#c7cfc9;font-size:14.5px;}
 
@@ -314,9 +357,25 @@ h2{font-size:clamp(28px,4vw,42px);}
   background:repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 12px);
 }
 .process-step:last-child::after{display:none;}
+/* De bol krijgt zijn licht uit de achtergrond zelf, niet uit een overlay —
+   anders ligt er een waas over het cijfer. */
 .step-num{
-  width:52px;height:52px;border-radius:50%;background:var(--ink);color:#fff;
+  position:relative;width:54px;height:54px;border-radius:50%;color:#fff;
   display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;margin-bottom:22px;
+  background:
+    radial-gradient(56% 46% at 34% 20%, rgba(255,255,255,.4) 0%, rgba(255,255,255,0) 62%),
+    radial-gradient(120% 120% at 30% 18%, #3d5347 0%, #22322a 46%, #0e1712 100%);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:
+    0 14px 20px -10px rgba(24,36,32,.7),
+    0 3px 7px rgba(24,36,32,.32),
+    inset 0 -10px 16px rgba(0,0,0,.45);
+}
+.step-num::after{
+  content:"";position:absolute;left:50%;bottom:-11px;transform:translateX(-50%);
+  width:56%;height:10px;border-radius:50%;
+  background:radial-gradient(closest-side, rgba(24,36,32,.35), rgba(24,36,32,0));
+  pointer-events:none;
 }
 .process-step h3{font-size:17.5px;margin-bottom:10px;}
 .process-step p{color:var(--muted);font-size:14.5px;}
@@ -330,8 +389,8 @@ h2{font-size:clamp(28px,4vw,42px);}
 }
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
 .why-card{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:var(--radius-md);padding:28px 24px;}
-.why-icon{width:42px;height:42px;border-radius:11px;background:var(--accent-tint);display:flex;align-items:center;justify-content:center;color:var(--accent-dark);margin-bottom:18px;}
-.why-icon svg{width:22px;height:22px;}
+.why-icon{width:46px;height:46px;border-radius:14px;margin-bottom:18px;}
+.why-icon svg{width:23px;height:23px;}
 .why-card h3{font-size:16.5px;margin-bottom:8px;}
 .why-card p{font-size:14.5px;color:var(--muted);}
 
@@ -462,8 +521,16 @@ h2{font-size:clamp(28px,4vw,42px);}
 .review-card p.quote{font-size:15px;color:var(--ink-soft);flex:1;}
 .review-who{display:flex;align-items:center;gap:12px;padding-top:14px;border-top:1px solid var(--line);}
 .review-avatar{
-  width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;
+  width:40px;height:40px;border-radius:50%;color:#fff;
   display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:none;
+  background:
+    radial-gradient(54% 44% at 34% 22%, rgba(255,255,255,.45) 0%, rgba(255,255,255,0) 60%),
+    radial-gradient(120% 120% at 32% 20%, #e2703f 0%, #c1481d 48%, #8f300d 100%);
+  border:1px solid rgba(255,255,255,.3);
+  box-shadow:
+    0 8px 14px -6px rgba(124,54,21,.6),
+    0 2px 4px rgba(124,54,21,.3),
+    inset 0 -6px 10px rgba(0,0,0,.22);
 }
 .review-who div strong{display:block;font-size:14.5px;}
 .review-who div span{font-size:13px;color:var(--muted);}
