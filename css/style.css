@@ -502,10 +502,36 @@ h2{font-size:clamp(28px,4vw,42px);}
 }
 .area-map{
   border-radius:var(--radius-lg);overflow:hidden;position:relative;
-  background:radial-gradient(circle at 55% 45%, rgba(193,72,29,.25), transparent 60%), #22332b;
+  background:radial-gradient(circle at 50% 30%, #24352c, #131e18 70%);
   aspect-ratio:1/1;
 }
 .area-map svg{position:absolute;inset:0;width:100%;height:100%;}
+
+/* De markers staan rechtop op het gekantelde vlak; hun voetschaduw is een
+   platte ellips, wat de hoogte pas echt laat lezen. */
+.area-map-town ellipse{fill:rgba(0,0,0,.45);}
+.area-map-town path{stroke:rgba(247,244,238,.7);stroke-width:2;stroke-linecap:round;}
+.area-map-town .area-map-head{fill:#f7f4ee;}
+.area-map-town .area-map-spark{fill:rgba(255,255,255,.9);}
+.area-map-pulse{
+  fill:none;stroke:var(--accent);stroke-width:2;
+  transform-box:view-box;transform-origin:196px 218px;
+  animation:map-pulse 3s ease-out infinite;
+}
+@keyframes map-pulse{
+  0%  {transform:scale(.6);opacity:.85;}
+  75% {transform:scale(3.4);opacity:0;}
+  100%{transform:scale(3.4);opacity:0;}
+}
+.area-map text{font-family:var(--font);}
+.area-map-label text{
+  fill:#f2efe8;font-size:13px;font-weight:600;
+  paint-order:stroke;stroke:rgba(9,15,12,.7);stroke-width:3.5px;stroke-linejoin:round;
+}
+.area-map-label .area-map-home-label{fill:#fff;font-size:14.5px;font-weight:800;}
+@media (prefers-reduced-motion:reduce){
+  .area-map-pulse{animation:none;opacity:.35;}
+}
 
 /* ==========================================================================
    Reviews

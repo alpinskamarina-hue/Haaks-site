@@ -477,23 +477,118 @@
         </div>
       </div>
       <div class="area-map reveal">
-        <svg viewBox="0 0 400 400" fill="none" aria-hidden="true">
-          <circle cx="200" cy="200" r="140" stroke="rgba(247,244,238,.18)" stroke-dasharray="5 8"/>
-          <circle cx="200" cy="200" r="90" stroke="rgba(247,244,238,.14)" stroke-dasharray="5 8"/>
-          <g stroke="#f7f4ee" stroke-width="1.4" opacity=".55">
-            <path d="M60 260 Q200 180 340 230"/>
-            <path d="M90 100 Q220 160 300 320"/>
+        <!-- Schematische kaart: richtingen kloppen, de onderlinge afstanden zijn
+             ruimer gezet zodat de plaatsnamen leesbaar blijven. -->
+        <svg viewBox="0 0 400 400" fill="none" role="img"
+             aria-label="Kaart van het werkgebied: vanuit IJsselmuiden naar Kampen, Zwolle, Genemuiden, Zwartsluis, Hasselt en Dronten.">
+          <defs>
+            <linearGradient id="mapLand" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#33493c"/>
+              <stop offset="55%" stop-color="#243529"/>
+              <stop offset="100%" stop-color="#1a2820"/>
+            </linearGradient>
+            <linearGradient id="mapRim" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1d2c24"/>
+              <stop offset="100%" stop-color="#0b120e"/>
+            </linearGradient>
+            <radialGradient id="mapGlow" cx="49%" cy="55%" r="42%">
+              <stop offset="0%" stop-color="rgba(193,72,29,.5)"/>
+              <stop offset="100%" stop-color="rgba(193,72,29,0)"/>
+            </radialGradient>
+            <radialGradient id="mapAmbient" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(0,0,0,.55)"/>
+              <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+            </radialGradient>
+            <clipPath id="mapClip">
+              <ellipse cx="200" cy="214" rx="150" ry="78"/>
+            </clipPath>
+          </defs>
+
+          <!-- schaduw waar de plaat op rust -->
+          <ellipse cx="200" cy="312" rx="168" ry="34" fill="url(#mapAmbient)"/>
+
+          <!-- de plaat: zijkant eerst, dan het bovenvlak eroverheen -->
+          <ellipse cx="200" cy="238" rx="150" ry="78" fill="#0d1610"/>
+          <path d="M50 214 L50 238 A150 78 0 0 0 350 238 L350 214 Z" fill="url(#mapRim)"/>
+          <ellipse cx="200" cy="214" rx="150" ry="78" fill="url(#mapLand)"/>
+
+          <g clip-path="url(#mapClip)">
+            <!-- water: de IJssel langs Kampen, het Zwarte Meer in het noordwesten -->
+            <path d="M300 288 Q246 244 196 224 Q140 202 40 190"
+                  stroke="#4a6f7a" stroke-opacity=".7" stroke-width="9" stroke-linecap="round"/>
+            <path d="M300 288 Q246 244 196 224 Q140 202 40 190"
+                  stroke="#7ba2ac" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="78" cy="176" rx="62" ry="20" fill="#3f606b" fill-opacity=".55"/>
+            <!-- lichtval over het land -->
+            <ellipse cx="200" cy="214" rx="150" ry="78" fill="url(#mapGlow)"/>
+            <!-- terreinlijnen, meelopend met het perspectief -->
+            <g stroke="rgba(247,244,238,.10)">
+              <ellipse cx="200" cy="214" rx="112" ry="58"/>
+              <ellipse cx="200" cy="214" rx="72" ry="37"/>
+            </g>
           </g>
-          <g fill="#c1481d">
-            <circle cx="200" cy="200" r="7"/>
+
+          <!-- rand van het werkgebied -->
+          <ellipse cx="200" cy="214" rx="150" ry="78"
+                   stroke="rgba(247,244,238,.35)" stroke-width="1.6" stroke-dasharray="6 9"/>
+
+          <!-- plaatsen: staande markers met contactschaduw -->
+          <g class="area-map-town">
+            <g>
+              <ellipse cx="162" cy="166" rx="7" ry="2.6"/>
+              <path d="M162 166 L162 150"/>
+              <circle class="area-map-head" cx="162" cy="147" r="4.4"/>
+              <circle class="area-map-spark" cx="160.6" cy="145.6" r="1.5"/>
+            </g>
+            <g>
+              <ellipse cx="262" cy="178" rx="7" ry="2.6"/>
+              <path d="M262 178 L262 162"/>
+              <circle class="area-map-head" cx="262" cy="159" r="4.4"/>
+              <circle class="area-map-spark" cx="260.6" cy="157.6" r="1.5"/>
+            </g>
+            <g>
+              <ellipse cx="298" cy="208" rx="7" ry="2.6"/>
+              <path d="M298 208 L298 192"/>
+              <circle class="area-map-head" cx="298" cy="189" r="4.4"/>
+              <circle class="area-map-spark" cx="296.6" cy="187.6" r="1.5"/>
+            </g>
+            <g>
+              <ellipse cx="258" cy="252" rx="7" ry="2.6"/>
+              <path d="M258 252 L258 236"/>
+              <circle class="area-map-head" cx="258" cy="233" r="4.4"/>
+              <circle class="area-map-spark" cx="256.6" cy="231.6" r="1.5"/>
+            </g>
+            <g>
+              <ellipse cx="150" cy="236" rx="7" ry="2.6"/>
+              <path d="M150 236 L150 220"/>
+              <circle class="area-map-head" cx="150" cy="217" r="4.4"/>
+              <circle class="area-map-spark" cx="148.6" cy="215.6" r="1.5"/>
+            </g>
+            <g>
+              <ellipse cx="96" cy="212" rx="7" ry="2.6"/>
+              <path d="M96 212 L96 196"/>
+              <circle class="area-map-head" cx="96" cy="193" r="4.4"/>
+              <circle class="area-map-spark" cx="94.6" cy="191.6" r="1.5"/>
+            </g>
           </g>
-          <g fill="#f7f4ee">
-            <circle cx="130" cy="150" r="4"/>
-            <circle cx="270" cy="140" r="4"/>
-            <circle cx="300" cy="240" r="4"/>
-            <circle cx="150" cy="280" r="4"/>
-            <circle cx="250" cy="290" r="4"/>
-            <circle cx="90" cy="220" r="4"/>
+
+          <!-- thuisbasis -->
+          <ellipse class="area-map-pulse" cx="196" cy="218" rx="11" ry="5.7"/>
+          <g class="area-map-home">
+            <ellipse cx="196" cy="218" rx="9" ry="3.4" fill="rgba(0,0,0,.5)"/>
+            <path d="M196 218 L196 196" stroke="#e58a5e" stroke-width="2.6" stroke-linecap="round"/>
+            <circle cx="196" cy="191" r="6.6" fill="#c1481d" stroke="rgba(255,255,255,.85)" stroke-width="2"/>
+            <circle cx="194" cy="189" r="2.1" fill="rgba(255,255,255,.8)"/>
+          </g>
+
+          <g class="area-map-label">
+            <text x="162" y="140" text-anchor="middle">Zwartsluis</text>
+            <text x="262" y="152" text-anchor="middle">Genemuiden</text>
+            <text x="298" y="182" text-anchor="middle">Hasselt</text>
+            <text x="252" y="226" text-anchor="middle">Zwolle</text>
+            <text x="150" y="258" text-anchor="middle">Kampen</text>
+            <text x="96" y="186" text-anchor="middle">Dronten</text>
+            <text class="area-map-home-label" x="196" y="174" text-anchor="middle">IJsselmuiden</text>
           </g>
         </svg>
       </div>
