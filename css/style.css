@@ -515,6 +515,42 @@ form.lead-form{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:18
 .footer-bottom{padding-top:26px;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:13px;color:#8d968f;}
 
 /* ==========================================================================
+   WhatsApp — vaste, opvallende knop rechtsonder op elke sectie
+   ========================================================================== */
+.whatsapp-fab{
+  position:fixed;right:24px;bottom:24px;z-index:200;
+  display:flex;align-items:center;gap:10px;
+  background:#25d366;color:#fff;
+  padding:15px 22px 15px 15px;border-radius:100px;
+  box-shadow:0 10px 26px rgba(37,211,102,.4), 0 3px 10px rgba(0,0,0,.18);
+  font-weight:700;font-size:15px;
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.whatsapp-fab:hover{
+  background:#20bd5a;transform:translateY(-2px) scale(1.03);
+  box-shadow:0 16px 34px rgba(37,211,102,.5), 0 4px 12px rgba(0,0,0,.2);
+}
+.whatsapp-fab svg{width:27px;height:27px;flex:none;}
+.whatsapp-fab-ring{
+  position:absolute;inset:0;border-radius:100px;
+  border:2px solid rgba(37,211,102,.6);
+  animation:whatsapp-pulse 2.2s ease-out infinite;
+  pointer-events:none;
+}
+@keyframes whatsapp-pulse{
+  0%{transform:scale(1);opacity:.85;}
+  70%{transform:scale(1.35);opacity:0;}
+  100%{transform:scale(1.35);opacity:0;}
+}
+@media (prefers-reduced-motion:reduce){
+  .whatsapp-fab-ring{animation:none;}
+}
+@media (max-width:560px){
+  .whatsapp-fab{right:16px;bottom:16px;padding:15px;}
+  .whatsapp-fab-label{display:none;}
+}
+
+/* ==========================================================================
    Reveal animation
    ========================================================================== */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
