@@ -91,7 +91,7 @@ h2{font-size:clamp(28px,4vw,42px);}
 .btn-outline:hover{border-color:var(--ink);background:rgba(24,36,32,.04);}
 .btn-light{background:#fff;color:var(--ink);}
 .btn-light:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.14);}
-.btn-block{width:100%;}
+.btn-block{width:100%;white-space:normal;}
 
 /* ==========================================================================
    Liquid glass (gedeeld door hero-navigatie, knoppen en tag)
@@ -639,7 +639,7 @@ h2{font-size:clamp(28px,4vw,42px);}
 }
 .contact-box h2{font-size:26px;text-align:center;}
 .contact-box .lede{text-align:center;color:var(--muted);margin-top:10px;font-size:15px;}
-form.lead-form{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+form.lead-form{margin-top:32px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;}
 .field{display:flex;flex-direction:column;gap:7px;}
 .field.full{grid-column:1/-1;}
 .field label{font-size:13.5px;font-weight:700;color:var(--ink-soft);}
@@ -697,7 +697,10 @@ form.lead-form{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:18
   padding:15px 22px 15px 15px;border-radius:100px;
   box-shadow:0 10px 26px rgba(37,211,102,.4), 0 3px 10px rgba(0,0,0,.18);
   font-weight:700;font-size:15px;
-  transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  transition:transform .25s ease, box-shadow .18s ease, background .18s ease, opacity .25s ease;
+}
+.whatsapp-fab.is-hidden{
+  opacity:0;transform:translateY(8px) scale(.9);pointer-events:none;
 }
 .whatsapp-fab:hover{
   background:#20bd5a;transform:translateY(-2px) scale(1.03);
@@ -916,7 +919,7 @@ form.lead-form{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:18
   .project-grid{grid-template-columns:1fr;}
   .review-grid{grid-template-columns:1fr;}
   .process-grid{grid-template-columns:1fr;}
-  form.lead-form{grid-template-columns:1fr;}
+  form.lead-form{grid-template-columns:minmax(0,1fr);}
   .footer-grid{grid-template-columns:1fr 1fr;}
   .trustbar .container{justify-content:flex-start;gap:16px 28px;}
 }
@@ -924,7 +927,18 @@ form.lead-form{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:18
 @media (max-width:520px){
   .services-grid{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr;gap:28px;}
-  .contact-box{padding:30px 20px;}
+  /* The container already provides a side gutter — the card's own margin on
+     top of it left the fields squeezed into the middle of the screen. */
+  .contact-box{padding:28px 18px;margin-left:0;margin-right:0;border-radius:20px;}
+  .contact-box h2{font-size:23px;}
+  .contact-box .lede{font-size:14px;margin-top:8px;}
+  form.lead-form{margin-top:24px;gap:14px;}
+  .field input,.field select,.field textarea{padding:12px 13px;}
+  .field textarea{min-height:88px;}
+  .form-hint{padding:12px 14px;font-size:13px;}
+  .form-submit{margin-top:2px;}
+  .btn-whatsapp{padding:15px 18px;}
+  .form-note{font-size:12.5px;line-height:1.5;}
 }
 
 @media (max-width:480px){

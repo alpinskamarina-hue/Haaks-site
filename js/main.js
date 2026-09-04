@@ -118,6 +118,22 @@
     });
   }
 
+  /* Hide the floating WhatsApp button while the contact form is on screen:
+     the form's own green button does the same job, and two identical pills
+     stacked on top of each other only clutter the card. */
+  var fab = document.querySelector(".whatsapp-fab");
+  var contact = document.getElementById("contact");
+  if (fab && contact && "IntersectionObserver" in window) {
+    new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          fab.classList.toggle("is-hidden", entry.isIntersecting);
+        });
+      },
+      { threshold: 0.15 }
+    ).observe(contact);
+  }
+
   /* Footer year */
   var yearEl = document.getElementById("year");
   if (yearEl) {
