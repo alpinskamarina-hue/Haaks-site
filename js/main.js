@@ -124,18 +124,71 @@
     yearEl.textContent = new Date().getFullYear();
   }
 
-  /* Lead form: front-end only — wire up to a backend/CRM before going live */
+  /* Lead form -> WhatsApp.
+     The site is static, so there is no server to receive the form. Instead we
+     compose the answers into a message and open a wa.me deep link, which lands
+     the request in the WhatsApp inbox of the number below. Attachments cannot
+     travel through a wa.me link, so the form asks for photos in the chat. */
+  var WHATSAPP_NUMBER = "31634253000";
+
   var form = document.getElementById("leadForm");
   if (form) {
+    var isEn =
+      (document.documentElement.lang || "").toLowerCase().indexOf("en") === 0;
+
+    var t = isEn
+      ? {
+          intro: "New quote request via the website",
+          name: "Name",
+          phone: "Phone",
+          postcode: "Postcode",
+          service: "Service",
+          description: "Description",
+          sending: "Opening WhatsApp\u2026"
+        }
+      : {
+          intro: "Nieuwe offerteaanvraag via de website",
+          name: "Naam",
+          phone: "Telefoon",
+          postcode: "Postcode",
+          service: "Dienst",
+          description: "Omschrijving",
+          sending: "WhatsApp openen\u2026"
+        };
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+
+      var val = function (id) {
+        var el = document.getElementById(id);
+        return el ? el.value.trim() : "";
+      };
+
+      var message =
+        t.intro +
+        "\n\n" +
+        t.name + ": " + val("fld-naam") +
+        "\n" + t.phone + ": " + val("fld-tel") +
+        "\n" + t.postcode + ": " + val("fld-postcode") +
+        "\n" + t.service + ": " + val("fld-dienst") +
+        "\n\n" + t.description + ":\n" + val("fld-omschrijving");
+
+      var url =
+        "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+
       var submitBtn = form.querySelector("button[type=submit]");
       var originalText = submitBtn.textContent;
-      var isEn = (document.documentElement.lang || "").toLowerCase().indexOf("en") === 0;
-      submitBtn.textContent = isEn ? "Sent — thank you!" : "Verzonden — bedankt!";
+      submitBtn.textContent = t.sending;
       submitBtn.disabled = true;
+
+      /* Open in a new tab so the visitor keeps the page; if the browser blocks
+         the popup, navigate this tab instead so the request is never lost. */
+      var win = window.open(url, "_blank", "noopener");
+      if (!win) {
+        window.location.href = url;
+      }
+
       window.setTimeout(function () {
-        form.reset();
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
       }, 2600);

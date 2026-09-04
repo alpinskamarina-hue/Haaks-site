@@ -651,11 +651,24 @@ form.lead-form{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:18
   outline:none;border-color:var(--accent);background:#fff;
 }
 .field textarea{resize:vertical;min-height:96px;}
-.field-file{
-  border:1.5px dashed var(--line);border-radius:10px;padding:18px;text-align:center;
-  font-size:13.5px;color:var(--muted);background:var(--paper);cursor:pointer;
+.form-hint{
+  grid-column:1/-1;
+  border:1.5px dashed var(--line);border-radius:10px;padding:14px 16px;
+  font-size:13.5px;color:var(--muted);background:var(--paper);
 }
 .form-submit{grid-column:1/-1;margin-top:6px;}
+
+/* The form composes a WhatsApp message, so the button carries WhatsApp's
+   own colour and mark — the visitor sees where it takes them before tapping. */
+.btn-whatsapp{
+  background:#25d366;border-color:#25d366;color:#fff;
+  box-shadow:0 10px 24px rgba(37,211,102,.32);
+}
+.btn-whatsapp:hover{
+  background:#20bd5a;border-color:#20bd5a;
+  box-shadow:0 14px 30px rgba(37,211,102,.4);
+}
+.btn-whatsapp svg{width:22px;height:22px;}
 .form-note{grid-column:1/-1;text-align:center;font-size:13px;color:var(--muted);margin-top:2px;}
 
 /* ==========================================================================
