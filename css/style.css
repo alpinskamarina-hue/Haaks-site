@@ -220,7 +220,6 @@ h2{font-size:clamp(28px,4vw,42px);}
    Trust bar
    ========================================================================== */
 .trustbar{
-  background:rgba(24,36,32,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   padding:26px 0;
 }
 .trustbar .container{
@@ -235,7 +234,6 @@ h2{font-size:clamp(28px,4vw,42px);}
    ========================================================================== */
 .problems{
   padding:100px 0;
-  background:rgba(247,244,238,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
 .problem-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
 .problem-card{
@@ -259,7 +257,6 @@ h2{font-size:clamp(28px,4vw,42px);}
    ========================================================================== */
 .services{
   padding:100px 0;
-  background:rgba(239,233,223,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
 .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
 .service-card{
@@ -308,7 +305,6 @@ h2{font-size:clamp(28px,4vw,42px);}
    ========================================================================== */
 .promise{
   padding:100px 0;color:#fff;
-  background:rgba(24,36,32,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
 .promise .eyebrow{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:var(--accent-soft);}
 .promise .section-head h2{color:#fff;}
@@ -347,7 +343,6 @@ h2{font-size:clamp(28px,4vw,42px);}
    ========================================================================== */
 .process{
   padding:100px 0;
-  background:rgba(247,244,238,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
 .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
 .process-step{padding:0 22px 0 0;position:relative;}
@@ -385,7 +380,6 @@ h2{font-size:clamp(28px,4vw,42px);}
    ========================================================================== */
 .why{
   padding:100px 0;
-  background:rgba(239,233,223,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
 .why-card{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:var(--radius-md);padding:28px 24px;}
@@ -399,7 +393,6 @@ h2{font-size:clamp(28px,4vw,42px);}
    ========================================================================== */
 .projects{
   padding:100px 0;
-  background:rgba(247,244,238,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
 .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 .project-card{
@@ -488,7 +481,6 @@ h2{font-size:clamp(28px,4vw,42px);}
    ========================================================================== */
 .area{
   padding:90px 0;color:#fff;
-  background:rgba(24,36,32,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
 .area-inner{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
 .area .eyebrow{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:var(--accent-soft);}
@@ -539,7 +531,6 @@ h2{font-size:clamp(28px,4vw,42px);}
    ========================================================================== */
 .reviews{
   padding:100px 0;
-  background:rgba(239,233,223,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
 .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
 .review-card{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:var(--radius-md);padding:26px 24px;display:flex;flex-direction:column;gap:16px;}
@@ -570,7 +561,6 @@ h2{font-size:clamp(28px,4vw,42px);}
    ========================================================================== */
 .faq{
   padding:100px 0;
-  background:rgba(247,244,238,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
 .faq-list{max-width:800px;margin:0 auto;border-top:1px solid var(--line);}
 .faq-item{border-bottom:1px solid var(--line);}
@@ -593,7 +583,6 @@ h2{font-size:clamp(28px,4vw,42px);}
    ========================================================================== */
 .final-cta{
   padding:90px 0 0;
-  background:rgba(239,233,223,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
 .final-cta-box{
   background:linear-gradient(135deg,rgba(34,51,43,.88) 0%, rgba(24,36,32,.92) 100%);
@@ -621,7 +610,6 @@ h2{font-size:clamp(28px,4vw,42px);}
    ========================================================================== */
 .contact{
   padding:80px 0 110px;
-  background:rgba(239,233,223,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
 .contact-box{
   max-width:760px;margin:-64px auto 0;background:rgba(255,255,255,.95);border-radius:var(--radius-lg);
@@ -652,7 +640,6 @@ form.lead-form{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:18
    Footer
    ========================================================================== */
 .site-footer{
-  background:rgba(24,36,32,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   color:#c7cfc9;padding:64px 0 30px;
 }
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.1);}
@@ -699,6 +686,52 @@ form.lead-form{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:18
   .whatsapp-fab{right:16px;bottom:16px;padding:15px;}
   .whatsapp-fab-label{display:none;}
 }
+
+/* ==========================================================================
+   Zachte overgangen tussen de banden
+   De tint en de blur zitten in een ::before, niet op de sectie zelf, zodat
+   een masker de rand kan laten oplossen zonder de tekst mee te vervagen.
+   Aan de naad lost elke band op in de video eronder — geen harde lijn.
+   ========================================================================== */
+.trustbar,.problems,.services,.promise,.process,.why,.projects,.area,
+.reviews,.faq,.final-cta,.contact,.site-footer{position:relative;}
+
+.trustbar::before,.problems::before,.services::before,.promise::before,
+.process::before,.why::before,.projects::before,.area::before,
+.reviews::before,.faq::before,.final-cta::before,.contact::before,
+.site-footer::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:var(--band);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  -webkit-mask-image:linear-gradient(to bottom,
+    transparent 0, #000 var(--fade-top,90px),
+    #000 calc(100% - var(--fade-bottom,90px)), transparent 100%);
+  mask-image:linear-gradient(to bottom,
+    transparent 0, #000 var(--fade-top,90px),
+    #000 calc(100% - var(--fade-bottom,90px)), transparent 100%);
+}
+/* de inhoud blijft scherp boven de vervagende band */
+.trustbar > .container,.problems > .container,.services > .container,
+.promise > .container,.process > .container,.why > .container,
+.projects > .container,.area > .container,.reviews > .container,
+.faq > .container,.final-cta > .container,.contact > .container,
+.site-footer > .container{position:relative;z-index:1;}
+
+.trustbar{--band:rgba(24,36,32,.8);--fade-top:22px;--fade-bottom:22px;}
+.problems{--band:rgba(247,244,238,.88);}
+.services{--band:rgba(239,233,223,.88);}
+.promise{--band:rgba(24,36,32,.82);}
+.process{--band:rgba(247,244,238,.88);}
+.why{--band:rgba(239,233,223,.88);}
+.projects{--band:rgba(247,244,238,.88);}
+.area{--band:rgba(24,36,32,.82);}
+.reviews{--band:rgba(239,233,223,.88);}
+.faq{--band:rgba(247,244,238,.88);}
+/* final-cta en contact vormen samen één doorlopend vlak: geen naad ertussen */
+.final-cta{--band:rgba(239,233,223,.88);--fade-bottom:0px;}
+.contact{--band:rgba(239,233,223,.88);--fade-top:0px;}
+/* de footer loopt door tot het einde van de pagina */
+.site-footer{--band:rgba(24,36,32,.88);--fade-bottom:0px;}
 
 /* ==========================================================================
    Icoon-animatie
