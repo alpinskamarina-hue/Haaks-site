@@ -131,7 +131,8 @@
       e.preventDefault();
       var submitBtn = form.querySelector("button[type=submit]");
       var originalText = submitBtn.textContent;
-      submitBtn.textContent = "Verzonden — bedankt!";
+      var isEn = (document.documentElement.lang || "").toLowerCase().indexOf("en") === 0;
+      submitBtn.textContent = isEn ? "Sent — thank you!" : "Verzonden — bedankt!";
       submitBtn.disabled = true;
       window.setTimeout(function () {
         form.reset();
