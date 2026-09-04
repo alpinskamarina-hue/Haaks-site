@@ -12,7 +12,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -486,12 +485,13 @@
         </div>
       </div>
       <div class="area-map reveal">
-        <div class="area-map-canvas" id="areaMap"
-             aria-label="Kaart van ons werkgebied rond IJsselmuiden: Kampen, Zwolle, Genemuiden, Zwartsluis, Hasselt en Dronten."></div>
-        <p class="area-map-fallback">
-          Ons werkgebied ligt rond IJsselmuiden: Kampen, Zwolle, Genemuiden,
-          Zwartsluis, Hasselt en Dronten, binnen ongeveer 30 kilometer.
-        </p>
+        <iframe class="area-map-frame"
+                src="https://maps.google.com/maps?q=Parralelweg+30-16,+8271+PB+IJsselmuiden&amp;z=10&amp;hl=nl&amp;output=embed"
+                title="Google Maps-kaart van ons werkgebied rond IJsselmuiden"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen></iframe>
+        <p class="area-map-fallback">Ons werkgebied ligt rond IJsselmuiden: Kampen, Zwolle, Genemuiden,
+          Zwartsluis, Hasselt en Dronten, binnen ongeveer 30 kilometer.</p>
       </div>
     </div>
   </section>
@@ -804,7 +804,6 @@
   <span class="whatsapp-fab-label">WhatsApp</span>
 </a>
 
-<script src="vendor/leaflet/leaflet.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
