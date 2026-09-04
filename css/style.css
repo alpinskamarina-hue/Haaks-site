@@ -502,22 +502,11 @@ h2{font-size:clamp(28px,4vw,42px);}
 }
 .area-map{
   border-radius:var(--radius-lg);overflow:hidden;position:relative;
-  background:radial-gradient(circle at 50% 26%, #1c3037, #0d1a1d 74%);
+  background:radial-gradient(120% 95% at 50% 6%, #33555c 0%, #1b3036 38%, #0e1a1d 78%);
   aspect-ratio:1/1;
 }
 .area-map svg{position:absolute;inset:0;width:100%;height:100%;}
 
-/* Nederland als achtergrond: net genoeg contrast om het land van het
-   water te scheiden, niet zoveel dat het met de werkgebiedplaat vecht. */
-.area-map-nl-land{fill:url(#mapNl);stroke:rgba(247,244,238,.24);stroke-width:1.1;stroke-linejoin:round;}
-.area-map-nl-water{fill:#0e2027;}
-.area-map-nl-shadow{fill:rgba(0,0,0,.4);}
-.area-map-here circle{fill:var(--accent);}
-.area-map-here .area-map-here-ring{fill:none;stroke:rgba(193,72,29,.55);stroke-width:1.6;}
-.area-map-here text{
-  fill:rgba(242,239,232,.62);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-  paint-order:stroke;stroke:rgba(9,15,12,.6);stroke-width:3px;stroke-linejoin:round;
-}
 
 /* De markers staan rechtop op het gekantelde vlak; hun voetschaduw is een
    platte ellips, wat de hoogte pas echt laat lezen. */
@@ -527,7 +516,7 @@ h2{font-size:clamp(28px,4vw,42px);}
 .area-map-town .area-map-spark{fill:rgba(255,255,255,.9);}
 .area-map-pulse{
   fill:none;stroke:var(--accent);stroke-width:2;
-  transform-box:view-box;transform-origin:196px 262px;
+  transform-box:view-box;transform-origin:195px 221px;
   animation:map-pulse 3s ease-out infinite;
 }
 @keyframes map-pulse{
