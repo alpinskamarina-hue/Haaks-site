@@ -37,6 +37,12 @@ body{
   line-height:1.55;
   overflow-x:hidden;
 }
+/* "clip" crops the same overflow without turning html/body into a scroll
+   container — mobile Safari/Chrome keep position:fixed anchored to the
+   viewport, so the WhatsApp button stays on screen. */
+@supports (overflow:clip){
+  html,body{overflow-x:clip;}
+}
 
 /* Site-wide fixed video background — sits behind every section; each
    section then uses a translucent "glass" background so it stays
@@ -671,7 +677,8 @@ form.lead-form{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:18
    WhatsApp — vaste, opvallende knop rechtsonder op elke sectie
    ========================================================================== */
 .whatsapp-fab{
-  position:fixed;right:24px;bottom:24px;z-index:200;
+  position:fixed;right:24px;z-index:200;
+  bottom:calc(24px + env(safe-area-inset-bottom, 0px));
   display:flex;align-items:center;gap:10px;
   background:#25d366;color:#fff;
   padding:15px 22px 15px 15px;border-radius:100px;
@@ -700,7 +707,14 @@ form.lead-form{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:18
 }
 @media (max-width:560px){
   .hero-nav .lang-switch{display:none;}
-  .whatsapp-fab{right:16px;bottom:16px;padding:15px;}
+  .whatsapp-fab{
+    right:16px;padding:13px 18px 13px 13px;font-size:14px;gap:8px;
+    bottom:calc(16px + env(safe-area-inset-bottom, 0px));
+  }
+  .whatsapp-fab svg{width:24px;height:24px;}
+}
+@media (max-width:359px){
+  .whatsapp-fab{padding:13px;}
   .whatsapp-fab-label{display:none;}
 }
 
