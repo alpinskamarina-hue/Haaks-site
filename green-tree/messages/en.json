@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "title": "Green Tree — wholesale food from Russia and the CIS in Saudi Arabia",
+    "description": "Products from Russia and the CIS in stock in Jeddah. Small, medium and large wholesale. SFDA-registered, halal, Arabic labelling."
+  },
+  "topbar": "Wholesale delivery across the Kingdom · All products SFDA-registered · Halal",
+  "nav": {
+    "catalog": "Wholesale catalogue",
+    "brands": "Brands",
+    "producers": "For producers",
+    "how": "How it works",
+    "about": "About",
+    "search": "Search products and producers",
+    "inquiry": "Order",
+    "account": "Account",
+    "home": "Home",
+    "categories": "Categories"
+  },
+  "hero": {
+    "eyebrow": "Trading house in Jeddah",
+    "title": "Food from Russia and the CIS, in stock in Jeddah",
+    "lead": "Buy wholesale — from a single carton to a full container — with delivery across the Kingdom. Or bring your product to the Saudi market: we handle registration, import, warehousing and sales.",
+    "badges": ["SFDA-registered", "Halal certified", "Arabic labelling"],
+    "buy": {
+      "tag": "I'm buying",
+      "title": "Wholesale catalogue for business",
+      "text": "Small, medium and large wholesale for shops, restaurants, hotels, distributors and chains.",
+      "primary": "Open catalogue",
+      "secondary": "Register a company"
+    },
+    "sell": {
+      "tag": "I'm selling",
+      "title": "Turnkey entry to the Saudi market",
+      "text": "SFDA registration, halal, Arabic labelling, logistics, customs, warehousing and sales.",
+      "primary": "Send a request",
+      "secondary": "Estimate the cost"
+    }
+  },
+  "footer": {
+    "rights": "© Green Tree, Jeddah"
+  }
+}

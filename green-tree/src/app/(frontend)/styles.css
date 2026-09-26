@@ -1,0 +1,69 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-cream: #f4efe6;
+  --color-sand: #ece4d8;
+  --color-line: #e6ddcf;
+  --color-ink: #1c1a17;
+  --color-muted: #6b645a;
+  --color-forest: #115c47;
+  --color-forest-soft: #e2ede7;
+  --color-gold: #e6b566;
+  --color-gold-soft: #f6e6c8;
+  --color-night: #1f1d1a;
+
+  --font-display: var(--font-unbounded), var(--font-plex-arabic), system-ui, sans-serif;
+  --font-sans: var(--font-manrope), var(--font-plex-arabic), system-ui, sans-serif;
+
+  --radius-card: 1.25rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+  }
+  /* Unbounded has no Arabic glyphs; use Plex Arabic for headings in RTL */
+  [dir='rtl'] .font-display {
+    font-family: var(--font-plex-arabic), system-ui, sans-serif;
+    font-weight: 700;
+  }
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-[1280px] px-4 md:px-8;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-colors;
+}
+
+@utility btn-primary {
+  @apply btn bg-forest text-white hover:bg-forest/90;
+}
+
+@utility btn-outline {
+  @apply btn border-forest text-forest border-[1.5px] bg-white hover:bg-forest-soft;
+}
+
+@utility btn-light {
+  @apply btn text-forest bg-white hover:bg-cream;
+}
+
+@utility btn-ghost-light {
+  @apply btn border-[1.5px] border-white/70 text-white hover:bg-white/10;
+}
+
+@utility card {
+  @apply rounded-card border-line border bg-white;
+}
+
+@utility chip {
+  @apply border-line inline-flex items-center gap-1.5 rounded-full border bg-white px-3 py-1.5 text-xs font-medium;
+}
+
+@utility tag {
+  @apply inline-flex rounded-full px-3 py-1 text-xs font-semibold;
+}
