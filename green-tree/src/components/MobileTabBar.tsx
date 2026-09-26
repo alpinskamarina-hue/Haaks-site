@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Link, usePathname } from '@/i18n/navigation'
 
 import { CartIcon, GridIcon, HomeIcon, TagIcon, UserIcon } from './icons'
+import { InquiryCount } from './inquiry/InquiryButton'
 
 export function MobileTabBar() {
   const t = useTranslations('nav')
@@ -27,11 +28,12 @@ export function MobileTabBar() {
             <li key={href}>
               <Link
                 href={href}
-                className={`flex flex-col items-center gap-1 py-2.5 text-[11px] font-medium ${
+                className={`relative flex flex-col items-center gap-1 py-2.5 text-[11px] font-medium ${
                   active ? 'text-forest' : 'text-muted'
                 }`}
               >
                 <Icon width={22} height={22} />
+                {href === '/inquiry' && <InquiryCount />}
                 {label}
               </Link>
             </li>

@@ -7,8 +7,9 @@ import React from 'react'
 
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
+import { InquiryProvider } from '@/components/inquiry/InquiryProvider'
 import { MobileTabBar } from '@/components/MobileTabBar'
-import { rtlLocales, routing, type Locale } from '@/i18n/routing'
+import { rtlLocales, routing } from '@/i18n/routing'
 import '../styles.css'
 
 const unbounded = Unbounded({
@@ -54,7 +55,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!hasLocale(routing.locales, locale)) notFound()
   setRequestLocale(locale)
 
-  const dir = rtlLocales.includes(locale as Locale) ? 'rtl' : 'ltr'
+  const dir = rtlLocales.includes(locale) ? 'rtl' : 'ltr'
 
   return (
     <html
@@ -64,10 +65,12 @@ export default async function LocaleLayout({ children, params }: Props) {
     >
       <body className="pb-20 md:pb-0">
         <NextIntlClientProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <MobileTabBar />
+          <InquiryProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <MobileTabBar />
+          </InquiryProvider>
         </NextIntlClientProvider>
       </body>
     </html>

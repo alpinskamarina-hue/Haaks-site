@@ -9,6 +9,8 @@ export function LanguageSwitcher({ className = '' }: { className?: string }) {
   const locale = useLocale()
   const pathname = usePathname()
 
+  if (routing.locales.length < 2) return null
+
   return (
     <nav className={`flex items-center gap-3 ${className}`} aria-label="Language">
       {routing.locales.map((l) => (
@@ -20,7 +22,7 @@ export function LanguageSwitcher({ className = '' }: { className?: string }) {
           aria-current={l === locale ? 'true' : undefined}
           className={l === locale ? 'underline underline-offset-2' : 'opacity-80 hover:opacity-100'}
         >
-          {localeLabels[l]}
+          {localeLabels[l as keyof typeof localeLabels]}
         </Link>
       ))}
     </nav>

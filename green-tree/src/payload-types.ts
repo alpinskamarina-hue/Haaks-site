@@ -67,8 +67,12 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
+    products: Product;
+    categories: Category;
+    brands: Brand;
+    inquiries: Inquiry;
     media: Media;
+    users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -76,8 +80,12 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    brands: BrandsSelect<false> | BrandsSelect<true>;
+    inquiries: InquiriesSelect<false> | InquiriesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -86,10 +94,10 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: null;
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('ru' | 'en' | 'ar') | ('ru' | 'en' | 'ar')[];
   globals: {};
   globalsSelect: {};
-  locale: null;
+  locale: 'ru' | 'en' | 'ar';
   widgets: {
     collections: CollectionsWidget;
   };
@@ -119,6 +127,149 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  name: string;
+  slug: string;
+  brand: number | Brand;
+  category: number | Category;
+  storage: 'ambient' | 'chilled' | 'frozen';
+  temperature?: string | null;
+  availability: 'jeddah' | 'to-order';
+  halal?: boolean | null;
+  sfda?: boolean | null;
+  arabicLabel?: boolean | null;
+  popular?: boolean | null;
+  images?: (number | Media)[] | null;
+  packaging?: {
+    unitsPerBox?: number | null;
+    boxesPerPallet?: number | null;
+    palletsPerContainer?: number | null;
+  };
+  prices?: {
+    small?: {
+      price?: number | null;
+      minQty?: number | null;
+      unit?: ('boxes' | 'pallets' | 'containers') | null;
+    };
+    medium?: {
+      price?: number | null;
+      minQty?: number | null;
+      unit?: ('boxes' | 'pallets' | 'containers') | null;
+    };
+    large?: {
+      price?: number | null;
+      minQty?: number | null;
+      unit?: ('boxes' | 'pallets' | 'containers') | null;
+    };
+  };
+  description?: string | null;
+  composition?: string | null;
+  shelfLife?: string | null;
+  documents?:
+    | {
+        title: string;
+        file?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brands".
+ */
+export interface Brand {
+  id: number;
+  name: string;
+  slug: string;
+  logo?: (number | null) | Media;
+  country: 'ru' | 'by' | 'kz' | 'uz' | 'kg';
+  city?: string | null;
+  since?: number | null;
+  /**
+   * Коротко, например: «Молочная продукция»
+   */
+  speciality?: string | null;
+  description?: string | null;
+  halal?: boolean | null;
+  sfda?: boolean | null;
+  documents?:
+    | {
+        title: string;
+        file?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  name: string;
+  slug: string;
+  image?: (number | null) | Media;
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiries".
+ */
+export interface Inquiry {
+  id: number;
+  type: 'order' | 'partner';
+  status: 'new' | 'in-progress' | 'done';
+  company: string;
+  contactName: string;
+  phone: string;
+  email?: string | null;
+  city?: string | null;
+  crNumber?: string | null;
+  vatNumber?: string | null;
+  tier?: ('small' | 'medium' | 'large') | null;
+  items?:
+    | {
+        product?: (number | null) | Product;
+        productName?: string | null;
+        quantity?: number | null;
+        unit?: ('boxes' | 'pallets' | 'containers') | null;
+        id?: string | null;
+      }[]
+    | null;
+  comment?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -145,25 +296,6 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -187,12 +319,28 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'products';
+        value: number | Product;
+      } | null)
+    | ({
+        relationTo: 'categories';
+        value: number | Category;
+      } | null)
+    | ({
+        relationTo: 'brands';
+        value: number | Brand;
+      } | null)
+    | ({
+        relationTo: 'inquiries';
+        value: number | Inquiry;
       } | null)
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -238,6 +386,151 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  brand?: T;
+  category?: T;
+  storage?: T;
+  temperature?: T;
+  availability?: T;
+  halal?: T;
+  sfda?: T;
+  arabicLabel?: T;
+  popular?: T;
+  images?: T;
+  packaging?:
+    | T
+    | {
+        unitsPerBox?: T;
+        boxesPerPallet?: T;
+        palletsPerContainer?: T;
+      };
+  prices?:
+    | T
+    | {
+        small?:
+          | T
+          | {
+              price?: T;
+              minQty?: T;
+              unit?: T;
+            };
+        medium?:
+          | T
+          | {
+              price?: T;
+              minQty?: T;
+              unit?: T;
+            };
+        large?:
+          | T
+          | {
+              price?: T;
+              minQty?: T;
+              unit?: T;
+            };
+      };
+  description?: T;
+  composition?: T;
+  shelfLife?: T;
+  documents?:
+    | T
+    | {
+        title?: T;
+        file?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  image?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brands_select".
+ */
+export interface BrandsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  logo?: T;
+  country?: T;
+  city?: T;
+  since?: T;
+  speciality?: T;
+  description?: T;
+  halal?: T;
+  sfda?: T;
+  documents?:
+    | T
+    | {
+        title?: T;
+        file?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiries_select".
+ */
+export interface InquiriesSelect<T extends boolean = true> {
+  type?: T;
+  status?: T;
+  company?: T;
+  contactName?: T;
+  phone?: T;
+  email?: T;
+  city?: T;
+  crNumber?: T;
+  vatNumber?: T;
+  tier?: T;
+  items?:
+    | T
+    | {
+        product?: T;
+        productName?: T;
+        quantity?: T;
+        unit?: T;
+        id?: T;
+      };
+  comment?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -258,24 +551,6 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

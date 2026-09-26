@@ -1,12 +1,14 @@
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 
-import { CartIcon, SearchIcon, UserIcon } from './icons'
+import { SearchIcon, UserIcon } from './icons'
+import { InquiryButton } from './inquiry/InquiryButton'
 import { LanguageSwitcher } from './LanguageSwitcher'
 
 export async function Header() {
   const t = await getTranslations()
+  const locale = await getLocale()
 
   const nav = [
     { href: '/catalog', label: t('nav.catalog') },
@@ -39,7 +41,7 @@ export async function Header() {
             ))}
           </nav>
 
-          <form action="/catalog" className="ms-auto hidden flex-1 md:block md:max-w-xs">
+          <form action={`/${locale}/catalog`} className="ms-auto hidden flex-1 md:block md:max-w-xs">
             <label className="bg-cream text-muted flex h-10 items-center gap-2 rounded-xl px-3 text-sm">
               <SearchIcon width={16} height={16} />
               <input
@@ -60,10 +62,7 @@ export async function Header() {
             >
               <UserIcon width={18} height={18} />
             </Link>
-            <Link href="/inquiry" className="btn-primary hidden h-10 py-0 md:inline-flex">
-              <CartIcon width={18} height={18} />
-              {t('nav.inquiry')}
-            </Link>
+            <InquiryButton label={t('nav.inquiry')} />
           </div>
         </div>
       </div>

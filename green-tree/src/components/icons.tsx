@@ -63,3 +63,24 @@ export const CheckIcon = (p: IconProps) => (
     <path d="m5 12 5 5 9-10" />
   </svg>
 )
+
+export const BoxIcon = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M12 3 4 7v10l8 4 8-4V7z" />
+    <path d="m4 7 8 4 8-4M12 11v10" />
+  </svg>
+)
+
+export const TruckIcon = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M3 6h11v10H3zM14 10h4l3 3v3h-7" />
+    <circle cx="7" cy="18" r="1.6" />
+    <circle cx="17" cy="18" r="1.6" />
+  </svg>
+)
+
+export const ArrowIcon = (p: IconProps) => (
+  <svg {...base} width={16} height={16} className="rtl:-scale-x-100" {...p}>
+    <path d="M5 12h14M13 6l6 6-6 6" />
+  </svg>
+)
