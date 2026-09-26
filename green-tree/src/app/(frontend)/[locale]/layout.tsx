@@ -9,6 +9,7 @@ import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { InquiryProvider } from '@/components/inquiry/InquiryProvider'
 import { MobileTabBar } from '@/components/MobileTabBar'
+import { WhatsAppButton } from '@/components/WhatsAppButton'
 import { rtlLocales, routing } from '@/i18n/routing'
 import '../styles.css'
 
@@ -69,6 +70,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <Header />
             <main>{children}</main>
             <Footer />
+            <WhatsAppButton />
             <MobileTabBar />
           </InquiryProvider>
         </NextIntlClientProvider>
