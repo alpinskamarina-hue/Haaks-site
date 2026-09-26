@@ -11,6 +11,16 @@ export const formatSAR = (value: number | null | undefined) =>
     ? '—'
     : `${value.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} SAR`
 
+export const formatDate = (iso: string | null | undefined) =>
+  iso ? new Date(iso).toLocaleDateString('ru-RU', { timeZone: 'Asia/Riyadh' }) : ''
+
+// Batches that must be sold within three months get a warning
+export const isShortDated = (iso: string | null | undefined, days = 90) =>
+  Boolean(iso) && new Date(iso!).getTime() - Date.now() < days * 24 * 60 * 60 * 1000
+
+export const priceText = (value: number | null | undefined) =>
+  showPrices && value != null ? formatSAR(value) : 'Цена по запросу'
+
 export const tierPrice = (p: Product, tier: Tier) => p.prices?.[tier] ?? null
 
 export const unitShort = (unit: string | null | undefined) =>

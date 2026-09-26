@@ -34,7 +34,7 @@ export const Products: CollectionConfig = {
   labels: { singular: 'Товар', plural: 'Товары' },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'brand', 'category', 'availability', 'popular'],
+    defaultColumns: ['name', 'brand', 'category', 'stock', 'availability'],
     group: 'Каталог',
   },
   access: { read: () => true },
@@ -108,7 +108,28 @@ export const Products: CollectionConfig = {
                 { name: 'halal', label: 'Халяль', type: 'checkbox', defaultValue: true },
                 { name: 'sfda', label: 'Зарегистрирован в SFDA', type: 'checkbox', defaultValue: true },
                 { name: 'arabicLabel', label: 'Этикетка на арабском', type: 'checkbox', defaultValue: true },
+                { name: 'glutenFree', label: 'Без глютена', type: 'checkbox' },
+                { name: 'organic', label: 'Органик (BIO)', type: 'checkbox' },
                 { name: 'popular', label: 'Популярное у оптовиков', type: 'checkbox' },
+              ],
+            },
+            {
+              name: 'stock',
+              label: 'Склад в Джидде',
+              type: 'group',
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'quantity', label: 'Остаток, шт', type: 'number', min: 0, index: true },
+                    {
+                      name: 'expiryDate',
+                      label: 'Годен до (ближайшая партия)',
+                      type: 'date',
+                      admin: { date: { pickerAppearance: 'dayOnly', displayFormat: 'dd.MM.yyyy' } },
+                    },
+                  ],
+                },
               ],
             },
             {

@@ -28,18 +28,22 @@ test.describe('Storefront', () => {
 })
 
 test.describe('Catalogue', () => {
-  test('filters by country and switches tier', async ({ page }) => {
+  test('filters by country and gluten-free, switches tier', async ({ page }) => {
     await page.goto('http://localhost:3000/ru/catalog')
-    await page.getByRole('checkbox', { name: 'Казахстан' }).check()
-    await expect(page).toHaveURL(/country=kz/)
-    await expect(page.getByText('Найдено товаров: 3')).toBeVisible()
+    await page.getByRole('checkbox', { name: 'Испания' }).check()
+    await expect(page).toHaveURL(/country=es/)
+    await expect(page.getByText('Найдено товаров: 9')).toBeVisible()
+    await page.getByRole('checkbox', { name: 'Без глютена', exact: true }).check()
+    await expect(page).toHaveURL(/gf=1/)
+    await expect(page.getByText('Найдено товаров: 0')).toBeVisible()
+    await page.goto('http://localhost:3000/ru/catalog')
     await page.getByRole('link', { name: 'Крупный опт' }).click()
     await expect(page).toHaveURL(/tier=large/)
     await expect(page.getByText(/Крупный опт: от 10 паллет/)).toBeVisible()
   })
 
   test('product, brand and category pages open', async ({ page }) => {
-    for (const path of ['/ru/catalog/dairy', '/ru/product/buckwheat-900', '/ru/brands', '/ru/brands/brand-4']) {
+    for (const path of ['/ru/catalog/pasta', '/ru/product/weizenfrei-baguette-200g', '/ru/brands', '/ru/brands/probios']) {
       const res = await page.goto(`http://localhost:3000${path}`)
       expect(res?.status(), path).toBe(200)
       await expect(page.locator('h1')).toBeVisible()

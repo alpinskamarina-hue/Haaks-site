@@ -1,13 +1,13 @@
 import { expect, test } from '@playwright/test'
 
 test('buyer adds a product and sends an inquiry', async ({ page }) => {
-  await page.goto('http://localhost:3000/ru/product/semi-hard-cheese-45-200')
+  await page.goto('http://localhost:3000/ru/product/weizenfrei-baguette-200g')
   await page.getByRole('radio', { name: /Средний опт/ }).check()
   await page.getByRole('button', { name: 'Добавить в заявку' }).click()
   await expect(page.getByRole('button', { name: 'Добавлено в заявку' })).toBeVisible()
 
   await page.goto('http://localhost:3000/ru/inquiry')
-  await expect(page.getByRole('link', { name: 'Сыр полутвёрдый 45%, 200 г' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'baguette 200g' })).toBeVisible()
 
   // Required fields are checked on the server
   await page.getByRole('button', { name: 'Отправить заявку' }).click()

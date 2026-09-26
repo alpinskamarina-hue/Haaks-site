@@ -9,6 +9,8 @@ const one = (v: string | string[] | undefined) => list(v)[0]
 
 export const sortOptions = [
   { value: 'popular', label: 'Популярные' },
+  { value: 'stock', label: 'Больше на складе' },
+  { value: 'expiry', label: 'Ближе срок годности' },
   { value: 'price-asc', label: 'Сначала дешевле' },
   { value: 'price-desc', label: 'Сначала дороже' },
   { value: 'name', label: 'По названию' },
@@ -21,6 +23,8 @@ export type CatalogFilters = {
   countries: string[]
   storage: string[]
   halal: boolean
+  glutenFree: boolean
+  organic: boolean
   availability?: string
   q?: string
   tier: Tier
@@ -42,6 +46,8 @@ export function parseFilters(sp: SearchParams, presetCategory?: string): Catalog
     countries: list(sp.country).filter((c) => countries.some((x) => x.value === c)),
     storage: list(sp.storage).filter((s) => storageTypes.some((x) => x.value === s)),
     halal: one(sp.halal) === '1',
+    glutenFree: one(sp.gf) === '1',
+    organic: one(sp.bio) === '1',
     availability: availabilityTypes.some((a) => a.value === availability) ? availability : undefined,
     q: one(sp.q)?.trim() || undefined,
     tier: isTier(tier) ? tier : 'small',
@@ -60,6 +66,8 @@ export function buildWhere(
   if (f.countries.length) and.push({ 'brand.country': { in: f.countries } })
   if (f.storage.length) and.push({ storage: { in: f.storage } })
   if (f.halal) and.push({ halal: { equals: true } })
+  if (f.glutenFree) and.push({ glutenFree: { equals: true } })
+  if (f.organic) and.push({ organic: { equals: true } })
   if (f.availability) and.push({ availability: { equals: f.availability } })
   if (f.q) and.push({ name: { like: f.q } })
   return and.length ? { and } : {}
@@ -71,6 +79,10 @@ export function sortField(f: CatalogFilters) {
       return `prices.${f.tier}.price`
     case 'price-desc':
       return `-prices.${f.tier}.price`
+    case 'stock':
+      return '-stock.quantity'
+    case 'expiry':
+      return 'stock.expiryDate'
     case 'name':
       return 'name'
     case 'new':
@@ -89,6 +101,8 @@ export function toQuery(f: CatalogFilters, patch: Partial<CatalogFilters> = {}) 
   next.countries.forEach((v) => qs.append('country', v))
   next.storage.forEach((v) => qs.append('storage', v))
   if (next.halal) qs.set('halal', '1')
+  if (next.glutenFree) qs.set('gf', '1')
+  if (next.organic) qs.set('bio', '1')
   if (next.availability) qs.set('availability', next.availability)
   if (next.q) qs.set('q', next.q)
   if (next.tier !== 'small') qs.set('tier', next.tier)

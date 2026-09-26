@@ -141,7 +141,13 @@ export interface Product {
   halal?: boolean | null;
   sfda?: boolean | null;
   arabicLabel?: boolean | null;
+  glutenFree?: boolean | null;
+  organic?: boolean | null;
   popular?: boolean | null;
+  stock?: {
+    quantity?: number | null;
+    expiryDate?: string | null;
+  };
   images?: (number | Media)[] | null;
   packaging?: {
     unitsPerBox?: number | null;
@@ -187,7 +193,7 @@ export interface Brand {
   name: string;
   slug: string;
   logo?: (number | null) | Media;
-  country: 'ru' | 'by' | 'kz' | 'uz' | 'kg';
+  country: 'ru' | 'by' | 'kz' | 'uz' | 'kg' | 'it' | 'es' | 'eu';
   city?: string | null;
   since?: number | null;
   /**
@@ -399,7 +405,15 @@ export interface ProductsSelect<T extends boolean = true> {
   halal?: T;
   sfda?: T;
   arabicLabel?: T;
+  glutenFree?: T;
+  organic?: T;
   popular?: T;
+  stock?:
+    | T
+    | {
+        quantity?: T;
+        expiryDate?: T;
+      };
   images?: T;
   packaging?:
     | T

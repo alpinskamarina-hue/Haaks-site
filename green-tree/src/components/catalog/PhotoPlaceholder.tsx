@@ -17,7 +17,7 @@ export function ProductImage({
   if (media?.url) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
-      <img src={media.url} alt={media.alt ?? ''} className={`object-cover ${className}`} />
+      <img src={media.url} alt={media.alt ?? ''} className={`object-contain ${className}`} />
     )
   }
 

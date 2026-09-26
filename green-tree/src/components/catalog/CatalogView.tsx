@@ -67,7 +67,7 @@ export async function CatalogView({
   const title =
     selectedCategories.length === 1 ? selectedCategories[0].name : f.q ? `Поиск: «${f.q}»` : 'Оптовый каталог'
   const note = tierNotes[f.tier]
-  const brandsShown = allBrands.docs.slice(0, 6)
+  const brandsShown = allBrands.docs.slice(0, 12)
   const extraSelectedBrands = selectedBrands.filter((b) => !brandsShown.includes(b))
 
   return (
@@ -165,7 +165,9 @@ export async function CatalogView({
                 ))}
               </FilterGroup>
 
-              <FilterGroup title="Сертификация">
+              <FilterGroup title="Особенности">
+                <Check name="gf" value="1" label="Без глютена" checked={f.glutenFree} />
+                <Check name="bio" value="1" label="Органик (BIO)" checked={f.organic} />
                 <Check name="halal" value="1" label="Халяль" checked={f.halal} />
               </FilterGroup>
 

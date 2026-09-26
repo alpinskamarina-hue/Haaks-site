@@ -15,7 +15,9 @@ import {
   asBrand,
   asCategory,
   asMedia,
+  formatDate,
   formatSAR,
+  isShortDated,
   minQtyText,
   showPrices,
   tierPrice,
@@ -57,13 +59,15 @@ export default async function ProductPage({ params }: Props) {
 
   const prices = tiers.map((t) => {
     const p = tierPrice(product, t.value)
-    const perUnit =
-      showPrices && p?.price && unitsPerBox
-        ? `за коробку · ≈ ${formatSAR(p.price / unitsPerBox)} за шт`
+    const known = showPrices && p?.price != null
+    const perUnit = !known
+      ? 'пришлём в КП'
+      : unitsPerBox
+        ? `за коробку · ≈ ${formatSAR(p!.price! / unitsPerBox)} за шт`
         : 'за коробку'
     return {
       tier: t.value,
-      price: showPrices ? formatSAR(p?.price) : 'по запросу',
+      price: known ? formatSAR(p!.price) : 'по запросу',
       perUnit,
       min: minQtyText(p?.minQty, p?.unit),
       minQty: p?.minQty ?? 1,
@@ -71,18 +75,24 @@ export default async function ProductPage({ params }: Props) {
     }
   })
 
+  const qty = product.stock?.quantity
+  const expiry = product.stock?.expiryDate
   const badges = [
+    product.glutenFree && { label: 'Без глютена', tone: 'green' },
+    product.organic && { label: 'Органик (BIO)', tone: 'green' },
     product.halal && { label: 'Халяль', tone: 'green' },
     product.sfda && { label: 'Зарегистрирован в SFDA', tone: 'green' },
     product.arabicLabel && { label: 'Этикетка на арабском', tone: 'green' },
     product.temperature && { label: `Хранение ${product.temperature}`, tone: 'blue' },
     { label: labelOf(availabilityTypes, product.availability), tone: 'gold' },
-  ].filter(Boolean) as { label: string; tone: 'green' | 'blue' | 'gold' }[]
+    expiry && isShortDated(expiry) && { label: `Короткий срок: до ${formatDate(expiry)}`, tone: 'red' },
+  ].filter(Boolean) as { label: string; tone: 'green' | 'blue' | 'gold' | 'red' }[]
 
   const toneClass = {
     green: 'bg-forest-soft text-forest',
     blue: 'bg-[#e4e7f3] text-[#2b3a78]',
     gold: 'bg-gold-soft text-[#7a4b00]',
+    red: 'bg-[#f7e1da] text-[#9a3b1b]',
   }
 
   const images = (product.images ?? []).map(asMedia).filter(Boolean)
@@ -125,7 +135,7 @@ export default async function ProductPage({ params }: Props) {
           <ProductImage
             image={images[0]}
             label="Фото товара"
-            className="rounded-card aspect-[5/4] w-full"
+            className="rounded-card aspect-[5/4] w-full bg-white p-6"
           />
           <div className="mt-3 grid grid-cols-4 gap-3">
             {['', '', 'Этикетка AR', 'Коробка'].map((label, i) =>
@@ -174,8 +184,31 @@ export default async function ProductPage({ params }: Props) {
             brand={brand?.name}
             prices={prices}
             packaging={product.packaging ?? {}}
-            pricesNote="Цены без НДС 15% · видны после проверки CR и VAT"
+            pricesNote={
+              prices.some((p) => p.price !== 'по запросу')
+                ? 'Цены без НДС 15% · видны после проверки CR и VAT'
+                : 'Цены по уровням опта пришлём в коммерческом предложении'
+            }
           />
+
+          {qty != null && (
+            <dl className="card grid grid-cols-2 gap-4 p-5 text-sm md:p-7">
+              <div>
+                <dt className="text-muted">На складе в Джидде</dt>
+                <dd className="font-display mt-1 text-xl font-bold">{qty.toLocaleString('ru-RU')} шт</dd>
+              </div>
+              {expiry && (
+                <div>
+                  <dt className="text-muted">Годен до (ближайшая партия)</dt>
+                  <dd
+                    className={`font-display mt-1 text-xl font-bold ${isShortDated(expiry) ? 'text-[#9a3b1b]' : ''}`}
+                  >
+                    {formatDate(expiry)}
+                  </dd>
+                </div>
+              )}
+            </dl>
+          )}
 
           <div className="card p-5 md:p-7">
             <p className="flex items-center gap-2 font-semibold">
@@ -198,9 +231,11 @@ export default async function ProductPage({ params }: Props) {
         <InfoCard title="Состав и пищевая ценность">{product.composition}</InfoCard>
         <InfoCard title="Хранение и срок годности">
           {[labelOf(storageTypes, product.storage), product.temperature].filter(Boolean).join(', ')}
+          {expiry ? `. Партия на складе годна до ${formatDate(expiry)}` : ''}
           {product.shelfLife ? `. ${product.shelfLife}` : ''}
         </InfoCard>
         <InfoCard title="Документы">
+          {(product.documents ?? []).length === 0 && 'Сертификаты и спецификацию пришлём по запросу.'}
           <ul className="grid gap-2">
             {(product.documents ?? []).map((d) => {
               const file = asMedia(d.file)

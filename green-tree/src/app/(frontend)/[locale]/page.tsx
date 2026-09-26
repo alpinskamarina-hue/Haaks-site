@@ -24,7 +24,7 @@ export default async function HomePage({ params }: Props) {
   const [categories, brands, popular] = await Promise.all([
     payload.find({ collection: 'categories', limit: 8, sort: 'order', depth: 1 }),
     payload.find({ collection: 'brands', limit: 6, sort: 'since', depth: 1 }),
-    payload.find({ collection: 'products', where: { popular: { equals: true } }, limit: 5, depth: 1 }),
+    payload.find({ collection: 'products', sort: '-stock.quantity', limit: 5, depth: 1 }),
   ])
 
   return (
@@ -110,10 +110,7 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       <section className="container-page py-8">
-        <SectionHeader
-          title="Популярное у оптовиков"
-          aside="Цены за коробку: чем больше объём, тем ниже цена"
-        />
+        <SectionHeader title="Сейчас на складе в Джидде" link={{ href: '/catalog?sort=stock', label: 'Весь склад' }} />
         <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
           {popular.docs.map((p) => (
             <ProductCard key={p.id} product={p} variant="compact" />

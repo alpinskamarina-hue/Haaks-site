@@ -22,12 +22,24 @@ type Props = {
   name: string
   brand?: string
   prices: TierPrice[]
-  packaging: { unitsPerBox?: number | null; boxesPerPallet?: number | null; palletsPerContainer?: number | null }
+  packaging: {
+    unitsPerBox?: number | null
+    boxesPerPallet?: number | null
+    palletsPerContainer?: number | null
+  }
   pricesNote: string
 }
 
 // Tier choice, quantity and unit for one product, as in the product mockup
-export function ProductBuyBox({ productId, slug, name, brand, prices, packaging, pricesNote }: Props) {
+export function ProductBuyBox({
+  productId,
+  slug,
+  name,
+  brand,
+  prices,
+  packaging,
+  pricesNote,
+}: Props) {
   const { add } = useInquiry()
   const router = useRouter()
   const [tier, setTier] = useState<Tier>('small')
@@ -65,7 +77,9 @@ export function ProductBuyBox({ productId, slug, name, brand, prices, packaging,
             <label
               key={t.value}
               className={`flex cursor-pointer flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border p-4 transition-colors ${
-                active ? 'border-forest bg-forest-soft/60 border-2' : 'border-line hover:border-forest/40'
+                active
+                  ? 'border-forest bg-forest-soft/60 border-2'
+                  : 'border-line hover:border-forest/40'
               }`}
             >
               <input
@@ -82,7 +96,9 @@ export function ProductBuyBox({ productId, slug, name, brand, prices, packaging,
               </span>
               <span className="text-sm">{p.min}</span>
               <span className="ms-auto text-end">
-                <span className="font-display block text-lg font-bold whitespace-nowrap">{p.price}</span>
+                <span className="font-display block text-lg font-bold whitespace-nowrap">
+                  {p.price}
+                </span>
                 <span className="text-muted text-xs">{p.perUnit}</span>
               </span>
             </label>
@@ -95,7 +111,11 @@ export function ProductBuyBox({ productId, slug, name, brand, prices, packaging,
           <span className="text-muted mb-1.5 block text-sm" id="qty-label">
             Количество
           </span>
-          <div className="border-line flex h-12 items-center rounded-xl border bg-white" role="group" aria-labelledby="qty-label">
+          <div
+            className="border-line flex h-12 items-center rounded-xl border bg-white"
+            role="group"
+            aria-labelledby="qty-label"
+          >
             <button
               type="button"
               aria-label="Меньше"
@@ -154,23 +174,27 @@ export function ProductBuyBox({ productId, slug, name, brand, prices, packaging,
         </button>
       </div>
       {current.minQty > 0 && quantity < current.minQty && unit === current.unit && (
-        <p className="mt-3 text-sm text-[#9a3b1b]">Минимальный объём для этого уровня: {current.min}.</p>
+        <p className="mt-3 text-sm text-[#9a3b1b]">
+          Минимальный объём для этого уровня: {current.min}.
+        </p>
       )}
 
-      <dl className="border-line mt-5 flex flex-wrap gap-x-6 gap-y-1 border-t pt-4 text-sm">
-        <div className="flex gap-1">
-          <dt className="font-semibold">Коробка:</dt>
-          <dd>{packaging.unitsPerBox ?? '—'} шт</dd>
-        </div>
-        <div className="flex gap-1">
-          <dt className="font-semibold">Паллета:</dt>
-          <dd>{packaging.boxesPerPallet ?? '—'} коробок</dd>
-        </div>
-        <div className="flex gap-1">
-          <dt className="font-semibold">Контейнер 40′:</dt>
-          <dd>{packaging.palletsPerContainer ?? '—'} паллет</dd>
-        </div>
-      </dl>
+      {(packaging.unitsPerBox || packaging.boxesPerPallet || packaging.palletsPerContainer) && (
+        <dl className="border-line mt-5 flex flex-wrap gap-x-6 gap-y-1 border-t pt-4 text-sm">
+          <div className="flex gap-1">
+            <dt className="font-semibold">Коробка:</dt>
+            <dd>{packaging.unitsPerBox ?? '—'} шт</dd>
+          </div>
+          <div className="flex gap-1">
+            <dt className="font-semibold">Паллета:</dt>
+            <dd>{packaging.boxesPerPallet ?? '—'} коробок</dd>
+          </div>
+          <div className="flex gap-1">
+            <dt className="font-semibold">Контейнер 40′:</dt>
+            <dd>{packaging.palletsPerContainer ?? '—'} паллет</dd>
+          </div>
+        </dl>
+      )}
     </div>
   )
 }

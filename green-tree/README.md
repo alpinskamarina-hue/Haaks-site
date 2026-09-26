@@ -20,10 +20,10 @@ create user greentree with password 'greentree' createdb;
 create database greentree owner greentree;
 ```
 
-Демо-данные из макетов (8 категорий, 12 брендов, 27 товаров):
+Каталог из складского остатка в Джидде (139 товаров, 10 брендов, фото в `src/seed/stock`):
 
 ```bash
-npm run seed                  # заменяет каталог демо-данными
+npm run seed                  # заменяет каталог товарами со склада
 ```
 
 При первом заходе в `/admin` Payload предложит завести первого администратора. Админка на русском:

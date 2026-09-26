@@ -1,13 +1,66 @@
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
 import { getPayload } from 'payload'
 
 import config from '@payload-config'
 
-import { brands, categories, products } from './data'
+import type { Country } from '@/lib/catalog'
 
-// Replaces the catalogue with demo data. Run with: npm run seed
+// Replaces the catalogue with the current Jeddah stock list
+// (src/seed/stock/products.json, photos in src/seed/stock/images).
+// Run with: npm run seed
+const dirname = path.dirname(fileURLToPath(import.meta.url))
+
+type StockItem = {
+  sr: number
+  name: string
+  brand: string
+  category: string
+  quantity: number
+  expiry: string
+  image: string
+  glutenFree: boolean
+  organic: boolean
+}
+
+const categories = [
+  { slug: 'pasta', name: 'Паста без глютена и из бобовых' },
+  { slug: 'sauces', name: 'Соусы, песто и закуски' },
+  { slug: 'olive-oil', name: 'Оливковое масло' },
+  { slug: 'sweets', name: 'Шоколад и сладости' },
+  { slug: 'seeds', name: 'Семена и суперфуды' },
+  { slug: 'flour', name: 'Мука без глютена' },
+  { slug: 'breakfast', name: 'Завтраки и снеки' },
+  { slug: 'bakery', name: 'Хлеб без глютена' },
+]
+
+// Country is set only where it is known; the rest stay "Европа" until confirmed
+const brands: { name: string; country: Country }[] = [
+  { name: 'Probios', country: 'it' },
+  { name: 'Felicia', country: 'it' },
+  { name: 'Granda Tradizioni', country: 'it' },
+  { name: 'La Fabbrica della Pasta', country: 'it' },
+  { name: 'Sarchio', country: 'it' },
+  { name: 'RAFA Gorrotxategi', country: 'es' },
+  { name: 'DeliCatalia', country: 'es' },
+  { name: 'Libre Bio', country: 'eu' },
+  { name: 'Oliorama', country: 'eu' },
+  { name: 'Weizenfrei', country: 'eu' },
+]
+
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/['’]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+
 const payload = await getPayload({ config })
+const items: StockItem[] = JSON.parse(fs.readFileSync(path.join(dirname, 'stock/products.json'), 'utf8'))
 
-for (const collection of ['products', 'brands', 'categories'] as const) {
+for (const collection of ['products', 'brands', 'categories', 'media'] as const) {
   await payload.delete({ collection, where: { id: { exists: true } } })
 }
 
@@ -21,59 +74,52 @@ const brandIds = new Map<string, number>()
 for (const b of brands) {
   const doc = await payload.create({
     collection: 'brands',
-    data: {
-      ...b,
-      halal: true,
-      sfda: true,
-      description:
-        'О бренде: история, производство, ключевые продукты. Текст готовит производитель в своём кабинете, мы переводим его на арабский и английский.',
-      documents: [{ title: 'Халяль-сертификат (PDF)' }, { title: 'Регистрация производителя в SFDA (PDF)' }],
-    },
+    data: { ...b, slug: slugify(b.name), halal: false, sfda: false },
   })
-  brandIds.set(b.slug, doc.id)
+  brandIds.set(b.name, doc.id)
 }
 
-const round = (n: number) => Math.round(n * 100) / 100
+const categoryImage = new Map<string, number>()
+const usedSlugs = new Set<string>()
+for (const item of items) {
+  let slug = slugify(`${item.brand} ${item.name}`)
+  if (usedSlugs.has(slug)) slug = `${slug}-${item.sr}`
+  usedSlugs.add(slug)
 
-for (const p of products) {
+  const image = await payload.create({
+    collection: 'media',
+    data: { alt: item.name },
+    filePath: path.join(dirname, 'stock/images', item.image),
+  })
+
   await payload.create({
     collection: 'products',
     data: {
-      slug: p.slug,
-      name: p.name,
-      brand: brandIds.get(p.brand)!,
-      category: categoryIds.get(p.category)!,
-      storage: p.storage,
-      temperature: p.temperature,
-      availability: p.toOrder ? 'to-order' : 'jeddah',
-      popular: p.popular ?? false,
-      halal: true,
-      sfda: true,
-      arabicLabel: true,
-      packaging: {
-        unitsPerBox: p.unitsPerBox,
-        boxesPerPallet: p.boxesPerPallet,
-        palletsPerContainer: 20,
-      },
-      prices: {
-        small: { price: p.price, minQty: 5, unit: 'boxes' },
-        medium: { price: round(p.price * 0.92), minQty: 1, unit: 'pallets' },
-        large: { price: round(p.price * 0.85), minQty: 10, unit: 'pallets' },
-      },
-      description:
-        'Короткое описание от производителя: вкус, применение, особенности. Заполняется в кабинете производителя.',
-      composition: 'Состав, КБЖУ на 100 г, аллергены — по данным производителя.',
-      shelfLife: 'Срок годности партии на складе указывается при заказе.',
-      documents: [
-        { title: 'Халяль-сертификат (PDF)' },
-        { title: 'Регистрация SFDA (PDF)' },
-        { title: 'Спецификация для закупщиков (PDF)' },
-      ],
+      slug,
+      name: item.name,
+      brand: brandIds.get(item.brand)!,
+      category: categoryIds.get(item.category)!,
+      storage: 'ambient',
+      availability: 'jeddah',
+      // Not confirmed for this stock yet: set in the admin once documents are checked
+      halal: false,
+      sfda: false,
+      arabicLabel: false,
+      glutenFree: item.glutenFree,
+      organic: item.organic,
+      images: [image.id],
+      stock: { quantity: item.quantity, expiryDate: item.expiry },
     },
   })
+  if (!categoryImage.has(item.category)) categoryImage.set(item.category, image.id)
+}
+
+// Until real category photos are uploaded, each tile shows one of its products
+for (const [slug, imageId] of categoryImage) {
+  await payload.update({ collection: 'categories', id: categoryIds.get(slug)!, data: { image: imageId } })
 }
 
 payload.logger.info(
-  `Seeded ${categories.length} categories, ${brands.length} brands, ${products.length} products`,
+  `Imported ${items.length} products, ${brands.length} brands, ${categories.length} categories`,
 )
 process.exit(0)
