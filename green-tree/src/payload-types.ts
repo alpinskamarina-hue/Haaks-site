@@ -193,7 +193,7 @@ export interface Brand {
   name: string;
   slug: string;
   logo?: (number | null) | Media;
-  country: 'ru' | 'by' | 'kz' | 'uz' | 'kg' | 'it' | 'es' | 'eu';
+  country: 'ru' | 'by' | 'kz' | 'uz' | 'kg' | 'ge' | 'it' | 'es' | 'eu';
   city?: string | null;
   since?: number | null;
   /**
@@ -203,6 +203,7 @@ export interface Brand {
   description?: string | null;
   halal?: boolean | null;
   sfda?: boolean | null;
+  featured?: boolean | null;
   documents?:
     | {
         title: string;
@@ -487,6 +488,7 @@ export interface BrandsSelect<T extends boolean = true> {
   description?: T;
   halal?: T;
   sfda?: T;
+  featured?: T;
   documents?:
     | T
     | {

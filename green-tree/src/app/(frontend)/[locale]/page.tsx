@@ -22,9 +22,15 @@ export default async function HomePage({ params }: Props) {
 
   const payload = await getPayloadClient()
   const [categories, brands, popular] = await Promise.all([
-    payload.find({ collection: 'categories', limit: 8, sort: 'order', depth: 1 }),
-    payload.find({ collection: 'brands', limit: 6, sort: 'since', depth: 1 }),
-    payload.find({ collection: 'products', sort: '-stock.quantity', limit: 5, depth: 1 }),
+    payload.find({ collection: 'categories', limit: 9, sort: 'order', depth: 1 }),
+    payload.find({ collection: 'brands', limit: 6, sort: ['-featured', 'name'], depth: 1 }),
+    payload.find({
+      collection: 'products',
+      where: { 'stock.quantity': { greater_than: 0 } },
+      sort: '-stock.quantity',
+      limit: 5,
+      depth: 1,
+    }),
   ])
 
   return (
@@ -79,7 +85,7 @@ export default async function HomePage({ params }: Props) {
 
       <section className="container-page py-8">
         <SectionHeader title="Категории" link={{ href: '/catalog', label: 'Весь каталог' }} />
-        <ul className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-4 md:overflow-visible md:px-0 lg:grid-cols-8">
+        <ul className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-5 md:overflow-visible md:px-0 lg:grid-cols-9">
           {categories.docs.map((c) => (
             <li key={c.id} className="w-32 shrink-0 snap-start md:w-auto">
               <Link href={`/catalog/${c.slug}`} className="card hover:border-forest/40 block h-full p-2.5">

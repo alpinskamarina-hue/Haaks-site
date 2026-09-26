@@ -7,6 +7,7 @@ export const countries = [
   { value: 'kz', label: 'Казахстан' },
   { value: 'uz', label: 'Узбекистан' },
   { value: 'kg', label: 'Кыргызстан' },
+  { value: 'ge', label: 'Грузия' },
   { value: 'it', label: 'Италия' },
   { value: 'es', label: 'Испания' },
   { value: 'eu', label: 'Европа' },

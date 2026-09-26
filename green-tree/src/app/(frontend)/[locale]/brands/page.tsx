@@ -48,7 +48,13 @@ export default async function BrandsPage({ params, searchParams }: Props) {
   if (brandIdsInCategory) and.push({ id: { in: brandIdsInCategory } })
 
   const [brands, allProducts] = await Promise.all([
-    payload.find({ collection: 'brands', where: and.length ? { and } : {}, limit: 200, sort: 'name', depth: 1 }),
+    payload.find({
+      collection: 'brands',
+      where: and.length ? { and } : {},
+      limit: 200,
+      sort: ['-featured', 'name'],
+      depth: 1,
+    }),
     payload.find({ collection: 'products', limit: 2000, depth: 0, select: { brand: true } }),
   ])
 

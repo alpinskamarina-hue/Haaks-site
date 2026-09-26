@@ -11,7 +11,7 @@ export const Brands: CollectionConfig = {
     group: 'Каталог',
   },
   access: { read: () => true },
-  defaultSort: 'name',
+  defaultSort: ['-featured', 'name'],
   fields: [
     { name: 'name', label: 'Название', type: 'text', required: true },
     {
@@ -51,6 +51,13 @@ export const Brands: CollectionConfig = {
       fields: [
         { name: 'halal', label: 'Халяль', type: 'checkbox', defaultValue: true },
         { name: 'sfda', label: 'Зарегистрирован в SFDA', type: 'checkbox', defaultValue: true },
+        {
+          name: 'featured',
+          label: 'Показывать первым в «Бренды, которые уже с нами»',
+          type: 'checkbox',
+          defaultValue: false,
+          index: true,
+        },
       ],
     },
     {

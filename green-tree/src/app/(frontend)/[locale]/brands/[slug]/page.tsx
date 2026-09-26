@@ -45,7 +45,9 @@ export default async function BrandPage({ params }: Props) {
     { label: 'Производство', value: [brand.city, country].filter(Boolean).join(', ') },
     { label: 'Товаров в каталоге', value: String(products.totalDocs) },
     { label: 'Уровни опта', value: 'мелкий, средний, крупный' },
-    { label: 'Хранение', value: 'склад в Джидде' },
+    ...(products.docs.some((p) => (p.stock?.quantity ?? 0) > 0)
+      ? [{ label: 'Хранение', value: 'склад в Джидде' }]
+      : []),
   ]
 
   return (

@@ -80,7 +80,7 @@ export function sortField(f: CatalogFilters) {
     case 'price-desc':
       return `-prices.${f.tier}.price`
     case 'stock':
-      return '-stock.quantity'
+      return ['-stock.quantity', 'name']
     case 'expiry':
       return 'stock.expiryDate'
     case 'name':

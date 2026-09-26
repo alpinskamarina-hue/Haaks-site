@@ -8,6 +8,8 @@ import config from '@payload-config'
 
 import type { Country } from '@/lib/catalog'
 
+import { partnerBrands, partnerCategory, partnerProducts } from './partners'
+
 // Replaces the catalogue with the current Jeddah stock list
 // (src/seed/stock/products.json, photos in src/seed/stock/images).
 // Run with: npm run seed
@@ -26,6 +28,7 @@ type StockItem = {
 }
 
 const categories = [
+  partnerCategory,
   { slug: 'pasta', name: 'Паста без глютена и из бобовых' },
   { slug: 'sauces', name: 'Соусы, песто и закуски' },
   { slug: 'olive-oil', name: 'Оливковое масло' },
@@ -71,10 +74,11 @@ for (const [order, c] of categories.entries()) {
 }
 
 const brandIds = new Map<string, number>()
-for (const b of brands) {
+// Brands whose every item is out of stock or expired are left out
+for (const b of brands.filter((b) => items.some((i) => i.brand === b.name))) {
   const doc = await payload.create({
     collection: 'brands',
-    data: { ...b, slug: slugify(b.name), halal: false, sfda: false },
+    data: { ...b, slug: slugify(b.name), halal: false, sfda: false, featured: false },
   })
   brandIds.set(b.name, doc.id)
 }
@@ -119,7 +123,71 @@ for (const [slug, imageId] of categoryImage) {
   await payload.update({ collection: 'categories', id: categoryIds.get(slug)!, data: { image: imageId } })
 }
 
+// Partner brands shown first in «Бренды, которые уже с нами»
+const upload = (file: string, alt: string) =>
+  payload.create({
+    collection: 'media',
+    data: { alt },
+    filePath: path.join(dirname, 'partners', file),
+  })
+
+const partnerIds = new Map<string, number>()
+for (const b of partnerBrands) {
+  const logo = await upload(b.logo, b.name)
+  const doc = await payload.create({
+    collection: 'brands',
+    data: {
+      name: b.name,
+      slug: b.slug,
+      country: b.country,
+      city: b.city,
+      speciality: b.speciality,
+      description: b.description,
+      logo: logo.id,
+      featured: true,
+      halal: false,
+      sfda: false,
+    },
+  })
+  partnerIds.set(b.slug, doc.id)
+}
+
+for (const p of partnerProducts) {
+  const images: number[] = []
+  for (const file of p.images) images.push((await upload(file, p.name)).id)
+  await payload.create({
+    collection: 'products',
+    data: {
+      slug: p.slug,
+      name: p.name,
+      brand: partnerIds.get(p.brand)!,
+      category: categoryIds.get(partnerCategory.slug)!,
+      storage: 'ambient',
+      availability: 'to-order',
+      halal: false,
+      sfda: false,
+      // Arabic text is visible on the labels in the brand photos
+      arabicLabel: true,
+      images,
+      description: p.description,
+    },
+  })
+}
+await payload.update({
+  collection: 'categories',
+  id: categoryIds.get(partnerCategory.slug)!,
+  data: {
+    image: (
+      await payload.find({
+        collection: 'products',
+        where: { slug: { equals: partnerProducts[0].slug } },
+        depth: 0,
+      })
+    ).docs[0].images![0] as number,
+  },
+})
+
 payload.logger.info(
-  `Imported ${items.length} products, ${brands.length} brands, ${categories.length} categories`,
+  `Imported ${items.length + partnerProducts.length} products, ${brandIds.size + partnerBrands.length} brands, ${categories.length} categories`,
 )
 process.exit(0)
